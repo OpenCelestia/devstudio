@@ -1,0 +1,6 @@
+release_id: AnyCloud39AV100_V2_V2.05
+family: AnyCloud39AV100_V2
+version: V2.05
+chip: AV100_V2
+libc: uclibc
+toolchain: arm-anycloud-linux-uclibcgnueabi-

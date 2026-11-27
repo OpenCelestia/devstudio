@@ -1,0 +1,3 @@
+# platform/include/ak_reg_resample.h
+ak_resample_get_version
+ak_resample_register

@@ -1,0 +1,6 @@
+# platform/include/effect_aiCryDetect.h
+Effect_AICRYDET_GetVersionInfo
+Effect_AICRYDET_Open
+Effect_AICRYDET_Close
+Effect_AICRYDET_Process
+Effect_AICRYDET_SetAttr

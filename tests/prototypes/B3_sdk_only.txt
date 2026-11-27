@@ -1,0 +1,9 @@
+扫描 \\172.24.151.131\celestia\Anyka AIStudio\tests\fixtures\Sky39AV130\V1.01
+  芯片 SDK     \\172.24.151.131\celestia\Anyka AIStudio\tests\fixtures\Sky39AV130\V1.01     已登记 Sky39AV130_V1.01
+  Celestia     未发现
+建议状态：sdk_only
+  将启用：devstudio-project devstudio-knowledge devstudio-rules devstudio-build
+  Skill：sensor-porting build-triage
+  可写：.devstudio/tasks/
+  编译：make   位置：wsl
+已写入 devstudio.yaml  AGENTS.md  .cursor/mcp.json  .cursor/skills/

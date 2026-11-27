@@ -1,0 +1,26 @@
+{
+  "task_id": "t0012",
+  "release_id": "AnyCloud39AV200_V1.04",
+  "state": "sdk_celestia",
+  "level": "L3",
+  "files": [
+    {
+      "path": "hardware/camera/hal/AnyCloud39AV200/gc5603.c",
+      "sha256": "abc"
+    }
+  ],
+  "numeric_fields": {
+    "by_rule": 12,
+    "needs_review": 0
+  },
+  "build": {
+    "host": "wsl",
+    "command": "./build.sh --product-name anypi_nova",
+    "exit": 0,
+    "artifacts": []
+  },
+  "unverified": [
+    "i2c_id",
+    "preview"
+  ]
+}

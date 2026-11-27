@@ -1,0 +1,422 @@
+[
+ {
+  "model": "k347p",
+  "resolution": "2880×1616（5M）",
+  "interface": "MIPI 2lane",
+  "fps": "30fps",
+  "cis_modes": [
+   "1（单目）",
+   "2（双目，主从）"
+  ],
+  "features": "常电、快启、AOV",
+  "source": "package",
+  "package": "k347p.tar.gz",
+  "docs": [
+   "doc",
+   "k347p",
+   "K347P_Map#108_No_13476_20251020.ini",
+   "K347P_Map#109_No_13477_20251020.ini",
+   "K347P_Map#135_No_14699_20260630.ini",
+   "K347P_Map#93_No_12997_20260601.ini",
+   "K347P_Map#93_No_12997_20260601.png"
+  ],
+  "confs": [
+   "isp_k347p_mipi_2lane_km01a.conf"
+  ]
+ },
+ {
+  "model": "sc501ai",
+  "resolution": "2880×1620（5M）",
+  "interface": "MIPI 2lane",
+  "fps": "25/30fps",
+  "cis_modes": [
+   "1（单目）"
+  ],
+  "features": "常电、快启、AOV",
+  "source": "sdk_builtin",
+  "package": null,
+  "docs": [],
+  "confs": [
+   "isp_sc501ai_mipi_2lane_km01a.conf"
+  ]
+ },
+ {
+  "model": "sc532ai",
+  "resolution": "2880×1624（5M）",
+  "interface": "MIPI 2lane",
+  "fps": "20/25fps",
+  "cis_modes": [
+   "1（单目）"
+  ],
+  "features": "常电、快启、AOV",
+  "source": "sdk_builtin",
+  "package": null,
+  "docs": [],
+  "confs": [
+   "isp_sc532ai_mipi_2lane_km01a.conf"
+  ]
+ },
+ {
+  "model": "cv4006",
+  "resolution": "2560×1440（4M，另有 720p 档）",
+  "interface": "MIPI 2lane",
+  "fps": "15/25fps",
+  "cis_modes": [
+   "1（单目）"
+  ],
+  "features": "常电",
+  "source": "package",
+  "package": "cv4006.tar.gz",
+  "docs": [],
+  "confs": [
+   "isp_cv4006_mipi_2lane_km01a_15fps.conf",
+   "isp_cv4006_mipi_2lane_km01a_25fps.conf"
+  ]
+ },
+ {
+  "model": "gc4023",
+  "resolution": "2560×1440（4M）",
+  "interface": "MIPI 2lane",
+  "fps": "25fps",
+  "cis_modes": [
+   "1（单目）"
+  ],
+  "features": "常电、快启",
+  "source": "sdk_builtin",
+  "package": null,
+  "docs": [],
+  "confs": [
+   "isp_gc4023_mipi_2lane_km01a.conf"
+  ]
+ },
+ {
+  "model": "gc4053",
+  "resolution": "2560×1440（4M）",
+  "interface": "MIPI 2lane",
+  "fps": "20/30fps",
+  "cis_modes": [
+   "1（单目）"
+  ],
+  "features": "常电、快启",
+  "source": "sdk_builtin",
+  "package": null,
+  "docs": [],
+  "confs": [
+   "isp_gc4053_mipi_2lane_km01a.conf"
+  ]
+ },
+ {
+  "model": "sc431hai",
+  "resolution": "2560×1440（4M）",
+  "interface": "MIPI 2lane",
+  "fps": "30fps（快启档按 15fps）",
+  "cis_modes": [
+   "2（双目，主从）"
+  ],
+  "features": "常电、快启、AOV、**双目常电**（doc 含 aov 寄存器说明）",
+  "source": "package",
+  "package": "sc431hai.tar.gz",
+  "docs": [
+   "doc",
+   "SC431hai",
+   "aov寄存器控制说明.txt",
+   "Cleaned_0x12_SC431AI_MIPI_24Minput_2Lane_10bit_630Mbps_2560x1440_30fps_slave_外供.ini"
+  ],
+  "confs": [
+   "isp_sc431hai_mipi_2lane_km01a.conf"
+  ]
+ },
+ {
+  "model": "sc4336",
+  "resolution": "2560×1440（4M）",
+  "interface": "MIPI 2lane",
+  "fps": "25fps（另有 20/30fps 档）",
+  "cis_modes": [
+   "1（单目）"
+  ],
+  "features": "常电、快启、AOV",
+  "source": "package",
+  "package": "sc4336.tar.gz",
+  "docs": [
+   "doc",
+   "sc4336",
+   "cleaned_0x05_SC4336_MIPI_24Minput_2lane_10bit_420Mbps_2560x1440_20fps.ini",
+   "Cleaned_0x40_SC4336_MIPI_24Minput_2lane_10bit_575Mbps_2560x1440_25fps_5m25_3125x1472.ini",
+   "Cleaned_0x48_SC4336_MIPI_24Minput_2lane_10bit_630Mbps_2560x1440_30fps_slave.ini"
+  ],
+  "confs": [
+   "isp_sc4336_mipi_2lane_km01a.conf"
+  ]
+ },
+ {
+  "model": "sc4336p",
+  "resolution": "2560×1440（4M）",
+  "interface": "MIPI 2lane",
+  "fps": "25fps",
+  "cis_modes": [
+   "1（单目）"
+  ],
+  "features": "常电、快启",
+  "source": "sdk_builtin",
+  "package": null,
+  "docs": [],
+  "confs": [
+   "isp_sc4336p_mipi_2lane_km01a.conf"
+  ]
+ },
+ {
+  "model": "sc435hai",
+  "resolution": "2560×1440（4M）",
+  "interface": "MIPI 2lane",
+  "fps": "25fps（另有 30fps 档）",
+  "cis_modes": [
+   "1（单目）"
+  ],
+  "features": "常电、快启、AOV",
+  "source": "package",
+  "package": "sc435hai.tar.gz",
+  "docs": [
+   "doc",
+   "sc435HAI",
+   "Cleaned_0x07_SC431AI_MIPI_24Minput_2Lane_10bit_630Mbps_2560x1440_30fps_外供.ini",
+   "Cleaned_0x0b_SC435HAI_MIPI_24Minput_2Lane_10bit_528Mbps_2560x1440_25fps_外供.ini",
+   "SC435HAI序列更新---2026-0311.txt",
+   "序列说明.txt"
+  ],
+  "confs": []
+ },
+ {
+  "model": "sc3336",
+  "resolution": "2304×1296（3M）",
+  "interface": "MIPI 2lane",
+  "fps": "30fps",
+  "cis_modes": [
+   "1（单目）"
+  ],
+  "features": "常电、快启、AOV",
+  "source": "package",
+  "package": "sc3336_single.tar.gz",
+  "docs": [],
+  "confs": [
+   "isp_sc3336_mipi_2lane_km01a.conf"
+  ]
+ },
+ {
+  "model": "sc3336",
+  "resolution": "2304×1296（3M）",
+  "interface": "MIPI 2lane",
+  "fps": "30fps（从机侧 ini 同 30fps）",
+  "cis_modes": [
+   "2（双目，主从）"
+  ],
+  "features": "常电、快启、AOV（doc 含共 I2C 双摄说明）",
+  "source": "package",
+  "package": "sc3336_dual.tar.gz",
+  "docs": [],
+  "confs": [
+   "isp_sc3336_mipi_2lane_km01a.conf"
+  ]
+ },
+ {
+  "model": "sc3336p",
+  "resolution": "2304×1296（3M）",
+  "interface": "MIPI 2lane",
+  "fps": "30/45fps",
+  "cis_modes": [
+   "1（单目）",
+   "2（双目，主从）"
+  ],
+  "features": "常电、快启",
+  "source": "sdk_builtin",
+  "package": null,
+  "docs": [],
+  "confs": [
+   "isp_sc3336p_mipi_2lane_km01a.conf",
+   "isp_sc3336p_mipi_2lane_km01a_dual.conf"
+  ]
+ },
+ {
+  "model": "cv2005",
+  "resolution": "1920×1080（2M）",
+  "interface": "MIPI 2lane",
+  "fps": "30fps（另有 15fps 档）",
+  "cis_modes": [
+   "1（单目）",
+   "2（双目，主从）"
+  ],
+  "features": "常电、快启、AOV",
+  "source": "sdk_builtin",
+  "package": null,
+  "docs": [],
+  "confs": [
+   "isp_cv2005_mipi_2lane_km01a.conf",
+   "isp_cv2005_mipi_2lane_km01a_dual.conf"
+  ]
+ },
+ {
+  "model": "gc20c3",
+  "resolution": "1920×1080（2M）",
+  "interface": "MIPI 2lane",
+  "fps": "30fps（另有 45fps 调参档）",
+  "cis_modes": [
+   "1（单目）"
+  ],
+  "features": "常电、快启、AOV",
+  "source": "package",
+  "package": "gc20c3_single.tar.gz",
+  "docs": [],
+  "confs": [
+   "isp_gc20c3_mipi_2lane_km01a.conf",
+   "isp_gc20c3_mipi_2lane_km01a_quad.conf"
+  ]
+ },
+ {
+  "model": "gc20c3",
+  "resolution": "1920×1080（2M）",
+  "interface": "MIPI 2lane",
+  "fps": "30fps",
+  "cis_modes": [
+   "2（双目，主从）",
+   "4（四目）"
+  ],
+  "features": "常电、快启、AOV",
+  "source": "package",
+  "package": "gc20c3_dual.tar.gz",
+  "docs": [],
+  "confs": [
+   "isp_gc20c3_mipi_2lane_km01a.conf",
+   "isp_gc20c3_mipi_2lane_km01a_quad.conf"
+  ]
+ },
+ {
+  "model": "os02g10",
+  "resolution": "1920×1080（2M）",
+  "interface": "MIPI 2lane",
+  "fps": "30fps",
+  "cis_modes": [
+   "1（单目）"
+  ],
+  "features": "常电、AOV",
+  "source": "package",
+  "package": "os02g10.tar.gz",
+  "docs": [
+   "doc",
+   "os02g10",
+   "OS02G10_MIPI_2LANE_1920x1080_72M_raw10_30fps_v2.4-0902.txt"
+  ],
+  "confs": []
+ },
+ {
+  "model": "sc200ai",
+  "resolution": "1920×1080（2M）",
+  "interface": "MIPI 2lane",
+  "fps": "30fps",
+  "cis_modes": [
+   "1（单目）"
+  ],
+  "features": "常电、快启、AOV",
+  "source": "sdk_builtin",
+  "package": null,
+  "docs": [],
+  "confs": [
+   "isp_sc200ai_mipi_2lane_km01a.conf"
+  ]
+ },
+ {
+  "model": "sc231hai",
+  "resolution": "1920×1080（2M）",
+  "interface": "DVP / MIPI 2lane",
+  "fps": "30fps",
+  "cis_modes": [
+   "1（单目）"
+  ],
+  "features": "常电、快启",
+  "source": "sdk_builtin",
+  "package": null,
+  "docs": [],
+  "confs": [
+   "isp_sc231hai_mipi_2lane_km01a.conf"
+  ]
+ },
+ {
+  "model": "sc2336",
+  "resolution": "1920×1080（2M）",
+  "interface": "MIPI 2lane",
+  "fps": "30fps",
+  "cis_modes": [
+   "1（单目）",
+   "2（双目，主从）"
+  ],
+  "features": "常电、快启（驱动无 AOV 分支）",
+  "source": "sdk_builtin",
+  "package": null,
+  "docs": [],
+  "confs": [
+   "isp_sc2336_mipi_2lane_km01a.conf",
+   "isp_sc2336_mipi_2lane_km01a_dual.conf"
+  ]
+ },
+ {
+  "model": "sc2336p",
+  "resolution": "1920×1080（2M）",
+  "interface": "MIPI 2lane",
+  "fps": "30fps",
+  "cis_modes": [
+   "1（单目）",
+   "2（双目，主从）",
+   "3（三目，主从从）"
+  ],
+  "features": "常电、快启、AOV",
+  "source": "sdk_builtin",
+  "package": null,
+  "docs": [],
+  "confs": [
+   "isp_sc2336p_mipi_2lane_km01a.conf",
+   "isp_sc2336p_mipi_2lane_km01a_dual.conf",
+   "isp_sc2336p_mipi_2lane_km01a_triple.conf"
+  ]
+ },
+ {
+  "model": "sc2337p",
+  "resolution": "1920×1080（2M）",
+  "interface": "MIPI 2lane",
+  "fps": "30fps",
+  "cis_modes": [
+   "1（单目）",
+   "2（双目，主从）",
+   "3（三目，主从从）"
+  ],
+  "features": "常电、快启、AOV",
+  "source": "sdk_builtin",
+  "package": null,
+  "docs": [],
+  "confs": [
+   "isp_sc2337p_mipi_2lane_km01a.conf",
+   "isp_sc2337p_mipi_2lane_km01a_dual.conf",
+   "isp_sc2337p_mipi_2lane_km01a_triple.conf"
+  ]
+ },
+ {
+  "model": "sc2337x",
+  "resolution": "1920×1080（2M）",
+  "interface": "MIPI 2lane",
+  "fps": "30fps（另有 50fps 件）",
+  "cis_modes": [
+   "1（单目）",
+   "2（双目，主从）",
+   "4（四目）"
+  ],
+  "features": "常电、快启、AOV",
+  "source": "package",
+  "package": "sc2337x.tar.gz",
+  "docs": [
+   "doc",
+   "sc2337x",
+   "cleaned_0x09_SC2336P_MIPI_24Minput_2Lane_396Mbps_10bit_1920x1080_30fps_内供.ini",
+   "Cleaned_0x37_SC2336X_MIPI_24Minput_2Lane_630Mbps_10bit_1920x1080_50fps_slave_外供_DVDD_1.5v.ini"
+  ],
+  "confs": [
+   "isp_sc2337x_mipi_2lane_km01a_quad.conf"
+  ]
+ }
+]

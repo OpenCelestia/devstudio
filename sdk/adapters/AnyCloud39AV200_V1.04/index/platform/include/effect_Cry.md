@@ -1,0 +1,6 @@
+# platform/include/effect_Cry.h
+Effect_CRY_GetVersionInfo
+Effect_CRY_Open
+Effect_CRY_Close
+Effect_CRY_Process
+Effect_CRY_SetAttr

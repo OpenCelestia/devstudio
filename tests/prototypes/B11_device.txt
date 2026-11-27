@@ -1,0 +1,17 @@
+板 192.168.1.20（anypi_nova）
+放置：/mnt/install/apps/recorder　备份：/mnt/install/.app_bak/recorder
+上传 … OK
+已写入 .devstudio/tasks/t0001/device.log
+
+用户区应用：重新打包 usr.sqsh4（9.8MB），写 APP 分区 /dev/mtd5
+板 192.168.1.20（anypi_nova）
+mtd_debug erase … OK　write … OK　设备重启中
+已写入 .devstudio/tasks/t0001/device.log
+
+板 192.168.1.20  uptime 3h12m
+cpu 37%  mem 61%  load 1.20 0.98 0.85  temp 52°C
+net rx 1.2MB tx 8.4MB
+top: nova_main 22%
+
+在线设备 2 块，未指定板号。已拒绝。
+用法：devstudio device push recorder --board 192.168.1.20

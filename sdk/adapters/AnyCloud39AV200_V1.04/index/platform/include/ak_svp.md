@@ -1,0 +1,8 @@
+# platform/include/ak_svp.h
+AK_S32
+AK_MPI_SVP_CreateChn
+AK_MPI_SVP_DestroyChn
+AK_MPI_SVP_Process
+AK_MPI_SVP_Release
+AK_MPI_SVP_GetRaram
+AK_MPI_SVP_SetParam

@@ -1,0 +1,16 @@
+扫描 \\172.24.151.131\celestia\Anyka AIStudio\tests\fixtures\customer_app
+  芯片 SDK     \\172.24.151.131\celestia\Anyka AIStudio\tests\fixtures\AnyCloud39AV100_V2\V2.05     已登记 AnyCloud39AV100_V2_V2.05
+  Celestia     未发现
+建议状态：sdk_customer_app
+  应用根目录 [\\172.24.151.131\celestia\Anyka AIStudio\tests\fixtures\customer_app]：\\172.24.151.131\celestia\Anyka AIStudio\tests\fixtures\customer_app
+  HAL 接口头文件目录：\\172.24.151.131\celestia\Anyka AIStudio\tests\fixtures\customer_app\include\hal
+  HAL 输出目录：\\172.24.151.131\celestia\Anyka AIStudio\tests\fixtures\customer_app\hal
+  编译命令：make -C my_app
+  编译位置 [local/wsl/ssh]：ssh
+  SSH 主机别名：build01
+  远端目录：\\172.24.151.131\celestia\Anyka AIStudio\tests\fixtures\customer_app
+  将启用：devstudio-project devstudio-knowledge devstudio-rules devstudio-source devstudio-build
+  Skill：hal-adapt sensor-porting build-triage
+  可写：\\172.24.151.131\celestia\Anyka AIStudio\tests\fixtures\customer_app\hal
+  编译：make -C my_app   位置：ssh
+已写入 devstudio.yaml  AGENTS.md  .cursor/mcp.json  .cursor/skills/

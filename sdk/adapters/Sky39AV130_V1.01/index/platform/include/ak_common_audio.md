@@ -1,0 +1,12 @@
+# platform/include/ak_common_audio.h
+int
+ak_audio_check_sample
+ak_audio_check_sample_bit
+ak_audio_check_channle
+ak_audio_len_to_interval
+ak_audio_interval_to_len
+ak_stereo_to_mono
+ak_mono_to_stereo
+ak_get_dev_buf_len
+ak_get_min_frame_len
+ak_get_max_frame_len

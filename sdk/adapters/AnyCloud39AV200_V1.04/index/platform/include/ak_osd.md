@@ -1,0 +1,21 @@
+# platform/include/ak_osd.h
+AK_MPI_OSD_Init
+AK_MPI_OSD_CreateCanvas
+AK_MPI_OSD_BindVi
+AK_MPI_OSD_UnbindVi
+AK_MPI_OSD_DestroyCanvas
+AK_MPI_OSD_CleanCanvas
+AK_MPI_OSD_GetCanvasAttr
+AK_MPI_OSD_SetCanvasAttr
+AK_MPI_OSD_ShowCanvas
+AK_MPI_OSD_GetBindInfo
+AK_MPI_OSD_CreateRegion
+AK_MPI_OSD_AttachRegion
+AK_MPI_OSD_DetachRegion
+AK_MPI_OSD_GetRegionAttr
+AK_MPI_OSD_SetRegionAttr
+AK_MPI_OSD_DestroyRegion
+AK_MPI_OSD_Destroy
+AK_MPI_OSD_GetStrBmp
+AK_MPI_OSD_ReleaseBmpBuf
+AK_MPI_OSD_UpdateRegion

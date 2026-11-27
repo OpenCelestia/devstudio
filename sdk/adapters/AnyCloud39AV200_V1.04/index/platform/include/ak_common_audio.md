@@ -1,0 +1,14 @@
+# platform/include/ak_common_audio.h
+AK_VOID
+AK_S32
+AudioCheckSampleRate
+AudioCheckSampleBit
+AudioCheckSoundMode
+AudioLenToInterval
+AudioIntervalToLen
+AudioStereoToMono
+AudioMonoToStereo
+AudioGetDevBufLen
+AudioGetMinFrameLen
+AudioGetMaxFrameLen
+AK_MPI_AUDIO_RegisterAIDenoise

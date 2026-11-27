@@ -1,0 +1,9 @@
+# platform/include/ak_video.h
+AK_VOID
+AK_EXT_VIDEO_SetDstChnActive
+AK_EXT_VIDEO_VencGetStream
+AK_EXT_VIDEO_UnbindChn
+AK_EXT_VIDEO_BindChn
+AK_EXT_VIDEO_SetCb
+AK_EXT_VIDEO_UnsetCb
+AK_EXT_VIDEO_SetChnAttr

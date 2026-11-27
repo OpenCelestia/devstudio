@@ -1,0 +1,10 @@
+# platform/include/ak_vqe.h
+ak_vqe_open
+ak_vqe_set_res_attr
+ak_vqe_set_aslc_attr
+ak_vqe_set_eq_attr
+ak_vqe_process
+ak_vqe_close
+ak_vqe_get_filter_info
+ak_vqe_set_pitch_attr
+ak_vqe_set_tw_attr

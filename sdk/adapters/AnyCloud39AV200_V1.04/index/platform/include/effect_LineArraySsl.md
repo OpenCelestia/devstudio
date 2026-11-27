@@ -1,0 +1,6 @@
+# platform/include/effect_LineArraySsl.h
+Effect_LineArray_SSL_GetVersionInfo
+Effect_LineArraySSL_Open
+Effect_LineArraySSL_Close
+Effect_LineArraySSL_Process
+Effect_LineArraySSL_SetAttr

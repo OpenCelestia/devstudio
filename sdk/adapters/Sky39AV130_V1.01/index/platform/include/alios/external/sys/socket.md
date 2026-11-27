@@ -1,0 +1,25 @@
+# platform/include/alios/external/sys/socket.h
+socket
+socketpair
+bind
+getsockname
+connect
+getpeername
+send
+recv
+sendto
+recvfrom
+sendmsg
+sendmmsg
+recvmsg
+recvmmsg
+OPTVAL
+getsockopt
+setsockopt
+listen
+ADDR
+accept
+accept4
+shutdown
+sockatmark
+isfdtype

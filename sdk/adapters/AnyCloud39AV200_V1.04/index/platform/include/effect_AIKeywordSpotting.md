@@ -1,0 +1,6 @@
+# platform/include/effect_AIKeywordSpotting.h
+Effect_AIKeywordSpotting_GetVersionInfo
+Effect_AIKeywordSpotting_Open
+Effect_AIKeywordSpotting_Close
+Effect_AIKeywordSpotting_Process
+Effect_AIKeywordSpotting_SetAttr

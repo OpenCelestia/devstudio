@@ -1,0 +1,2 @@
+name: build-triage
+state: [sdk_celestia, sdk_customer_app, sdk_only]

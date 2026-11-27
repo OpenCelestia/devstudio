@@ -1,0 +1,5 @@
+# platform/include/ak_dbg.h
+AK_BASE_DebugInfo
+AK_BASE_SetDebugStrInfo
+AK_BASE_SetDebugNumInfo
+AK_BASE_DebugJson

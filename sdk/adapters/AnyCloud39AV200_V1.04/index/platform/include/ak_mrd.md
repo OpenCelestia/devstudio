@@ -1,0 +1,11 @@
+# platform/include/ak_mrd.h
+ak_mrd_init
+ak_mrd_destroy
+ak_mrd_set_param_rectification_level
+ak_mrd_set_filters
+ak_mrd_set_motion_region_size
+ak_mrd_set_detection_region
+ak_mrd_set_mode
+ak_mrd_set_floating_wadding_params
+ak_mrd
+ak_mrd_get_version

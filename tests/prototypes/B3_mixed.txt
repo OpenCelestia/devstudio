@@ -1,0 +1,15 @@
+扫描 \\172.24.151.131\celestia\Anyka AIStudio\tests\fixtures\mixed
+  芯片 SDK     system/AnyCloud39AV200/V1.04     已登记 AnyCloud39AV200_V1.04
+  Celestia     未发现
+  发现：application/  hardware/
+  未发现：framework/  build.sh
+无法判断状态。请选择：
+  1) sdk_celestia      2) sdk_customer_app      3) sdk_only
+请选择 [1/2/3]：3
+建议状态：sdk_only
+  将启用：devstudio-project devstudio-knowledge devstudio-rules devstudio-build
+  Skill：sensor-porting build-triage
+  可写：.devstudio/tasks/
+  编译：./auto_build.sh   位置：wsl
+确认？[y/N] n
+未确认。未写入任何文件。

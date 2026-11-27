@@ -1,0 +1,12 @@
+# platform/include/ak_mux.h
+AK_MPI_MUX_Open
+AK_MPI_MUX_Start
+AK_MPI_MUX_Add_Audio
+AK_MPI_MUX_Add_Video
+AK_MPI_MUX_Stop
+AK_MPI_MUX_Close
+AK_MPI_MUX_Print_Runtime_Status
+AK_MPI_MUX_Fix_File
+AK_MPI_MUX_Pause
+AK_MPI_MUX_Continue
+AK_MPI_MUX_Get_Status

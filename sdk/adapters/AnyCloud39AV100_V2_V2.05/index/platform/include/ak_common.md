@@ -1,0 +1,15 @@
+# platform/include/ak_common.h
+ak_sleep_ms
+ak_get_ostime
+ak_get_os_timestamp
+ak_get_localdate
+ak_set_localdate
+ak_diff_ms_time
+ak_seconds_to_date
+ak_date_to_seconds
+ak_date_to_string
+ak_string_to_date
+ak_open
+ak_sdk_init
+ak_sdk_exit
+ak_get_chip_type

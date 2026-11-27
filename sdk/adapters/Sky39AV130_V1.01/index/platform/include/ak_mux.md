@@ -1,0 +1,12 @@
+# platform/include/ak_mux.h
+ak_mux_open
+ak_mux_start
+ak_mux_add_audio
+ak_mux_add_video
+ak_mux_stop
+ak_mux_close
+ak_mux_print_runtime_status
+ak_mux_fix_file
+ak_mux_pause
+ak_mux_continue
+ak_mux_get_status

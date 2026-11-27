@@ -1,0 +1,13 @@
+# platform/include/ak_aenc.h
+AK_MPI_AENC_SetLibPrintLevel
+AK_MPI_AENC_Open
+AK_MPI_AENC_SendFrame
+AK_MPI_AENC_GetStream
+AK_MPI_AENC_SendEndOfFrame
+AK_MPI_AENC_ReleaseStream
+AK_MPI_AENC_ClearEncodeBuf
+AK_MPI_AENC_Close
+AK_MPI_AENC_SaveFile
+AK_MPI_AENC_GetEncVersion
+AK_MPI_AENC_RegisterEncoder
+AK_MPI_AENC_GetEncParam

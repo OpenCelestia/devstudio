@@ -1,0 +1,23 @@
+# platform/include/ak_fr.h
+int
+ak_fr_init
+ak_fr_deinit
+ak_fr_load_model
+ak_fr_enable_angle_model
+ak_fr_enable_shape_model
+ak_fr_face_exposure_adjust
+ak_fr_get_detected_face
+ak_fr_release_detected_face
+ak_fr_enroll_oneface
+ak_fr_enroll_clearstate
+ak_fr_enroll_state
+ak_fr_set_ir_living_enable
+ak_fr_ir_living_set_score_level
+ak_fr_identify_set_score_level
+ak_fr_enroll_set_score_level
+ak_fr_identify_process
+ak_fr_abnormal_exit_process
+ak_fr_del_all_user
+ak_fr_del_userid
+ak_fr_get_all_userid
+ak_fr_get_userinfo

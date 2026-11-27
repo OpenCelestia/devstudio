@@ -1,0 +1,4 @@
+# platform/include/ak_uuid_wr.h
+ak_uuid_get_custom_id_length
+ak_uuid_get_custom_id
+ak_uuid_set_custom_id

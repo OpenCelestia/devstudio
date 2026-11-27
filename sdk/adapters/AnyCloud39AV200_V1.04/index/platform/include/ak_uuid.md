@@ -1,0 +1,5 @@
+# platform/include/ak_uuid.h
+AK_BASE_UuidOpen
+AK_BASE_UuidClose
+AK_BASE_UuidGetGlobalId
+AK_BASE_UuidGetGlobalIdLength

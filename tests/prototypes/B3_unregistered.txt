@@ -1,0 +1,3 @@
+扫描 \\172.24.151.131\celestia\Anyka AIStudio\tests\fixtures\unregistered
+  芯片 SDK     system/AnyCloud39AV200/V1.05     未登记 AnyCloud39AV200_V1.05
+已停止。请安装 AnyCloud39AV200_V1.05 的 Adapter 后重试。未写入任何文件。

@@ -1,0 +1,10 @@
+扫描 \\172.24.151.131\celestia\Anyka AIStudio\tests\fixtures\celestia
+  芯片 SDK     system/AnyCloud39AV200/V1.04     已登记 AnyCloud39AV200_V1.04
+  Celestia     application/ framework/ hardware/ build.sh
+  产品工程     project/anypi_nova（CONFIG_APP_PACKAGES_TABLET=y）
+建议状态：sdk_celestia
+  将启用：devstudio-project devstudio-knowledge devstudio-rules devstudio-source devstudio-build devstudio-device
+  Skill：project-bootstrap application-feature sensor-porting build-triage
+  可写：application/packages/tablet/<id>/  hardware/**/hal/AnyCloud39AV200/
+  编译：./build.sh --product-name anypi_nova   位置：wsl
+已写入 devstudio.yaml  AGENTS.md  .cursor/mcp.json  .cursor/skills/

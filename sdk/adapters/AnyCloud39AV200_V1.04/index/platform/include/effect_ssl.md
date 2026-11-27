@@ -1,0 +1,6 @@
+# platform/include/effect_ssl.h
+Effect_SSL_GetVersionInfo
+Effect_SSL_Open
+Effect_SSL_Close
+Effect_SSL_Process
+Effect_SSL_SetAttr

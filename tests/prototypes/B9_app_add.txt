@@ -1,0 +1,6 @@
+形态：TABLET（CONFIG_APP_PACKAGES_TABLET=y）
+目录：application/packages/tablet/recorder/
+入口：tablet_recorder_create　开关：CONFIG_APP_TABLET_RECORDER
+模板写入：app.json  app_entry_recorder.c  tablet_recorder.h
+模型可写：tablet_recorder.c 及同目录 .c/.h
+已创建计划 t0001，等待批准。

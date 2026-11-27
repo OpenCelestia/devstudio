@@ -1,0 +1,15 @@
+# platform/include/ak_aenc.h
+ak_aenc_print_codec_info
+ak_aenc_open
+ak_aenc_set_attr
+ak_aenc_send_frame
+ak_aenc_get_stream
+ak_aenc_release_stream
+ak_aenc_clear_encode_buf
+ak_aenc_print_runtime_status
+ak_aenc_close
+ak_aenc_save_file
+ak_aenc_get_codec_info
+ak_aenc_get_enc_info
+ak_aenc_set_lib_print_level
+ak_aenc_registerencoder

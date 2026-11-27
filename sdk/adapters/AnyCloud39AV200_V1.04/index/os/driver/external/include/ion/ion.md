@@ -1,0 +1,22 @@
+# os/driver/external/include/ion/ion.h
+ion_buffer_destroy
+ion_device_add_heap
+ion_map_kernel
+ion_unmap_kernel
+ion_heap_map_kernel
+ion_heap_unmap_kernel
+ion_heap_map_user
+ion_heap_buffer_zero
+ion_heap_init_shrinker
+ion_heap_init_deferred_free
+ion_heap_freelist_add
+ion_heap_freelist_drain
+ion_heap_freelist_shrink
+ion_heap_freelist_size
+ion_page_pool_create
+ion_page_pool_destroy
+ion_page_pool_alloc
+ion_page_pool_free
+ion_alloc
+ion_free
+ion_page_pool_shrink

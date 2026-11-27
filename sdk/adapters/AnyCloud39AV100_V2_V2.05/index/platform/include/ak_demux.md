@@ -1,0 +1,11 @@
+# platform/include/ak_demux.h
+ak_demux_open
+ak_demux_get_total_time
+ak_demux_get_video_info
+ak_demux_get_audio_info
+ak_demux_get_data
+ak_demux_get_video
+ak_demux_get_audio
+ak_demux_free_data
+ak_demux_close
+ak_demux_seek_to_keyframe

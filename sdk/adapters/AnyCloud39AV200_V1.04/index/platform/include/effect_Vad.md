@@ -1,0 +1,6 @@
+# platform/include/effect_Vad.h
+Effect_VAD_GetVersionInfo
+Effect_VAD_Open
+Effect_VAD_Close
+Effect_VAD_Process
+Effect_VAD_SetAttr

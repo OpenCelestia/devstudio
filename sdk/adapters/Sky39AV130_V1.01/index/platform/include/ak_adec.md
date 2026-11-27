@@ -1,0 +1,16 @@
+# platform/include/ak_adec.h
+ak_adec_open
+ak_adec_set_output_pcm_len
+ak_adec_send_stream
+ak_adec_get_frame
+ak_adec_release_frame
+ak_adec_send_stream_end
+ak_adec_clear_decode_buf
+ak_adec_print_runtime_status
+ak_adec_close
+ak_adec_save_file
+ak_adec_get_codec_info
+ak_adec_get_buf_status
+ak_adec_set_aac_dec_param
+ak_adec_set_lib_print_level
+ak_adec_registerdecoder

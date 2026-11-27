@@ -1,0 +1,16 @@
+# platform/include/ak_osd.h
+ak_osd_init
+ak_osd_get_max_rect
+ak_osd_create_canvas
+ak_osd_draw_bitmap_to_canvas
+ak_osd_set_to_vi
+ak_osd_set_region_to_vi
+ak_osd_set_alpha
+ak_osd_set_canvas_color
+ak_osd_set_canvas_position
+ak_osd_set_canvas_size
+ak_osd_clean_canvas
+ak_osd_clean_canvas_ex
+ak_osd_set_canvas_enable
+ak_osd_destroy_canvas
+ak_osd_uninit

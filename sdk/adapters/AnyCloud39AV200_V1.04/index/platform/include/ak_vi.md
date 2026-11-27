@@ -1,0 +1,19 @@
+# platform/include/ak_vi.h
+AK_MPI_VI_GetVersion
+AK_MPI_VI_CreateDev
+AK_MPI_VI_DestroyDev
+AK_MPI_VI_SetDevAttr
+AK_MPI_VI_GetDevAttr
+AK_MPI_VI_EnableDev
+AK_MPI_VI_DisableDev
+AK_MPI_VI_SetChnAttr
+AK_MPI_VI_GetChnAttr
+AK_MPI_VI_BindVpssGrp
+AK_MPI_VI_EnableChn
+AK_MPI_VI_DisableChn
+AK_MPI_VI_GetFrame
+AK_MPI_VI_ReleaseFrame
+AK_MPI_VI_GetSensorId
+AK_MPI_VI_GetSensorFps
+AK_MPI_VI_SetSensorFps
+AK_MPI_VI_GetSensorRes

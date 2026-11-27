@@ -1,0 +1,37 @@
+{
+  "release_id": "Sky39AV130_V1.01",
+  "kind": "wifi",
+  "source": "fae_support_judgement_l1",
+  "rows": [
+    {
+      "model": "ak6018_usb",
+      "bus": "USB",
+      "bt": false,
+      "modes": "b/g/n",
+      "source": "lib_pool"
+    },
+    {
+      "model": "atbm6012bx",
+      "bus": "SDIO",
+      "bt": true,
+      "modes": "b/g/n",
+      "source": "lib_pool"
+    },
+    {
+      "model": "atbm6461",
+      "bus": "SDIO",
+      "bt": true,
+      "modes": "b/g/n/ax",
+      "source": "lib_pool"
+    }
+  ],
+  "driver_src_dirs": [
+    "ak6018",
+    "atbm60xxx",
+    "atbm6461"
+  ],
+  "counts": {
+    "l1": 3,
+    "driver_src_dirs": 3
+  }
+}

@@ -1,0 +1,10 @@
+# platform/include/ak_svp2.h
+int
+ak_svp2_create_chn
+ak_svp2_destroy_chn
+ak_svp2_process
+ak_svp2_release
+ak_svp2_get_param
+ak_svp2_set_param
+ak_svp2_create_share_mem
+ak_svp2_destroy_share_mem

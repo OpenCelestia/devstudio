@@ -1,0 +1,126 @@
+{
+  "release_id": "AnyCloud39AV100_V2_V2.05",
+  "kind": "wifi",
+  "source": "fae_support_judgement_l1",
+  "rows": [
+    {
+      "model": "aic8800",
+      "bus": "SDIO",
+      "bt": false,
+      "modes": "b/g/n/ax",
+      "source": "script_pool"
+    },
+    {
+      "model": "aic8800d40l",
+      "bus": "SDIO",
+      "bt": false,
+      "modes": "b/g/n/ax",
+      "source": "script_pool"
+    },
+    {
+      "model": "atbm6012bx",
+      "bus": "SDIO",
+      "bt": true,
+      "modes": "b/g/n",
+      "source": "script_pool"
+    },
+    {
+      "model": "atbm6031",
+      "bus": "SDIO",
+      "bt": false,
+      "modes": "b/g/n",
+      "source": "script_pool"
+    },
+    {
+      "model": "atbm6031x",
+      "bus": "SDIO",
+      "bt": true,
+      "modes": "b/g/n",
+      "source": "script_pool"
+    },
+    {
+      "model": "atbm6032",
+      "bus": "SDIO",
+      "bt": false,
+      "modes": "b/g/n",
+      "source": "script_pool"
+    },
+    {
+      "model": "atbm6062s",
+      "bus": "SDIO",
+      "bt": true,
+      "modes": "b/g/n/ax",
+      "source": "script_pool"
+    },
+    {
+      "model": "atbm6062u",
+      "bus": "USB",
+      "bt": true,
+      "modes": "b/g/n/ax",
+      "source": "script_pool"
+    },
+    {
+      "model": "atbm6162",
+      "bus": "SDIO",
+      "bt": false,
+      "modes": "b/g/n/ax",
+      "source": "script_pool"
+    },
+    {
+      "model": "rtl8188",
+      "bus": "USB",
+      "bt": false,
+      "modes": "b/g/n",
+      "source": "script_pool"
+    },
+    {
+      "model": "rtl8189",
+      "bus": "SDIO",
+      "bt": false,
+      "modes": "b/g/n",
+      "source": "script_pool"
+    },
+    {
+      "model": "ssv6x5x",
+      "bus": "SDIO",
+      "bt": false,
+      "modes": "b/g/n",
+      "source": "script_pool"
+    }
+  ],
+  "driver_src_dirs": [
+    "ATBM_WIFI_SVN2936_AsmLite17993_ARESM17948_20230814",
+    "ATBM_WIFI_SVN3174_AsmLite18378_ARESM18330_Meru18748_20231120",
+    "ATBM_WIFI_SVN3236_AsmLite19040_ARESM18826_Meru19052_20231208",
+    "ATBM_WIFI_SVN3352_AsmLite19040_ARESM18826_Meru19624_20240226",
+    "AtbmWifi_Driver_SVN20816_LMAC14449_20220606",
+    "AtbmWifi_ble_Driver_SVN3047_LMAC18260_20230922",
+    "L.FWB.23Q1.0000.00",
+    "L.SMAC.19Q3.2053.01",
+    "L.SMAC.19Q3.2126.02_cloud39ev300l_20231123",
+    "L.SWB.23Q2.0000.00_r2489",
+    "aic8800-sdk",
+    "aic8800-sdk-v6.6.0.1",
+    "aic8800d40l",
+    "aic8800dl",
+    "atbm6032i_wifi_SVN1504_LMAC9227_20200327",
+    "atbm603X_wifi_SVN1558_LMAC9625_20200521",
+    "atbm603X_wifi_Sv17902_Lv11140_20201201",
+    "atbm603X_wifi_Sv1997_Lv13216_20211201",
+    "bluez_5.60_300L_V1.00",
+    "huge-ic-smac-linux-driver-v2.2.1-24070",
+    "huge-ic-smac-linux-driver-v2.3.2-29051",
+    "rtl8188EUS_linux_v5.7.6.1_35670.20191106",
+    "rtl8188FU_linux_v5.15.3-6-g1a2e952f9.20230217",
+    "rtl8188FU_linux_v5.7.4_33085.20190419",
+    "rtl8189FS_linux_v5.15.12-7-g4c86cb3ae.20231020",
+    "rtl8189FS_linux_v5.7.9_35795.20191128",
+    "rtl8192FU_rtl8725AU_WiFi_linux_v5.12.4-4-ga7451b386.20210111_COEX202001015-2005",
+    "tr5330_sdk_20240318",
+    "wq9001_drv_msg_in_out_bulk_337"
+  ],
+  "counts": {
+    "l1": 12,
+    "driver_src_dirs": 29
+  }
+}

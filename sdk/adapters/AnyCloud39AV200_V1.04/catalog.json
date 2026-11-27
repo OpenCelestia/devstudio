@@ -1,0 +1,412 @@
+[
+ {
+  "model": "gc8613",
+  "resolution": "3840×2160（8M）",
+  "interface": "MIPI 2lane / 4lane",
+  "fps": "15fps（2lane HDR）/ 20fps（4lane，另有 30fps linear 件）",
+  "cis_modes": [
+   "1（单目）"
+  ],
+  "features": "常电、HDR",
+  "source": "package",
+  "package": "gc8613.tar.gz",
+  "docs": [
+   "doc",
+   "gc8613",
+   "release_AEC_v2.1.1_0a&0d_hdr(T1&T2不分开)_GC8613YA.txt",
+   "release_hdr_v2.2.1_0a_4lane_raw10_3840x2160_30fps_24mhz_GC8613YA_不分开.txt",
+   "release_liner_v2.2.1_05_4lane_raw10_3840x2160_30fps_24mhz_GC8613YA.txt"
+  ],
+  "confs": [
+   "isp_gc8613_mipi_4lane_av200.conf"
+  ]
+ },
+ {
+  "model": "os08b10",
+  "resolution": "3840×2160（8M）",
+  "interface": "MIPI 4lane",
+  "fps": "20fps",
+  "cis_modes": [
+   "1（单目）"
+  ],
+  "features": "常电",
+  "source": "sdk_builtin",
+  "package": null,
+  "docs": [],
+  "confs": [
+   "isp_os08b10_mipi_4lane_av200.conf"
+  ]
+ },
+ {
+  "model": "sc835hai",
+  "resolution": "3840×2160（8M）",
+  "interface": "MIPI 4lane",
+  "fps": "20fps",
+  "cis_modes": [
+   "1（单目）"
+  ],
+  "features": "常电",
+  "source": "package",
+  "package": "sc835hai.tar.gz",
+  "docs": [
+   "doc",
+   "sc835hai",
+   "Cleaned_0x53_SC835HAI_MIPI_24Minput_4lane_10bit_540Mbps_3840x2160_20fps.ini"
+  ],
+  "confs": []
+ },
+ {
+  "model": "imx319",
+  "resolution": "3280×2464（8M，另有 3200×1920 档）",
+  "interface": "MIPI 4lane",
+  "fps": "27fps（3200×1920 档）/ 全尺寸档",
+  "cis_modes": [
+   "1（单目）"
+  ],
+  "features": "常电",
+  "source": "package",
+  "package": "imx319.tar.gz",
+  "docs": [
+   "imx319",
+   "IMX319&MN319_4L_3280x2464_RAW10_11_34.ini",
+   "imx319.zip",
+   "IMX319_4Lane_3200x1920_RAW10_800Mbps_27FPS.ini"
+  ],
+  "confs": []
+ },
+ {
+  "model": "ov08f10",
+  "resolution": "3264×2448（8M）",
+  "interface": "MIPI 2lane",
+  "fps": "30fps",
+  "cis_modes": [
+   "1（单目）"
+  ],
+  "features": "常电",
+  "source": "package",
+  "package": "ov08f10_single.tar.gz",
+  "docs": [],
+  "confs": []
+ },
+ {
+  "model": "ov08f10",
+  "resolution": "3264×2448（8M）",
+  "interface": "MIPI 2lane",
+  "fps": "30fps",
+  "cis_modes": [
+   "2（双目，主从）"
+  ],
+  "features": "常电",
+  "source": "package",
+  "package": "ov08f10_slave.tar.gz",
+  "docs": [],
+  "confs": []
+ },
+ {
+  "model": "ov8856",
+  "resolution": "3264×2448（8M）",
+  "interface": "MIPI 2lane",
+  "fps": "20fps",
+  "cis_modes": [
+   "1（单目）"
+  ],
+  "features": "常电（patch ko + VCM）",
+  "source": "package",
+  "package": "ov8856.tar.gz",
+  "docs": [
+   "doc",
+   "ov8856",
+   "@@ OV8855 2lane 3264x2448 20fps_wayne_20250707.txt",
+   "OV8856 驱动代码.zip",
+   "OV8856All_3264x2448_10FPS_2lane_480Mbps_v12c_wayne_20250813.txt",
+   "OV8856All_816x612_2lane_480Mbps_20fps_v12c_wayne_20250813.txt",
+   "OV8856_4L_1280x960_RAW10_11_6c_master.ini",
+   "OV8856_4L_1280x960_RAW10_11_6c_slave.ini"
+  ],
+  "confs": []
+ },
+ {
+  "model": "gc5603",
+  "resolution": "2944×1664（5M，另可 2560×1440）",
+  "interface": "MIPI 2lane",
+  "fps": "30fps",
+  "cis_modes": [
+   "1（单目）",
+   "2（双目，主从）"
+  ],
+  "features": "常电",
+  "source": "sdk_builtin",
+  "package": null,
+  "docs": [],
+  "confs": [
+   "isp_gc5603_mipi_2lane_av200.conf",
+   "isp_gc5603_mipi_2lane_av200_dual.conf"
+  ]
+ },
+ {
+  "model": "k347p",
+  "resolution": "2880×1616（5M）",
+  "interface": "MIPI 2lane",
+  "fps": "15fps（从机档）",
+  "cis_modes": [
+   "2（双目，主从）"
+  ],
+  "features": "常电",
+  "source": "package",
+  "package": "k347p.tar.gz",
+  "docs": [
+   "doc",
+   "k347p",
+   "K347P_Map#108_No_13476_20251020.ini",
+   "K347P_Map#109_No_13477_20251020.ini",
+   "K347P_Map#135_No_14699_20260630.ini",
+   "K347P_Map#93_No_12997_20260601.ini",
+   "K347P_Map#93_No_12997_20260601.png"
+  ],
+  "confs": []
+ },
+ {
+  "model": "sc5338p",
+  "resolution": "2880×1620（5M）",
+  "interface": "MIPI 2lane",
+  "fps": "30fps",
+  "cis_modes": [
+   "1（单目）"
+  ],
+  "features": "常电、快启、AOV（驱动 V1.03 起）",
+  "source": "package",
+  "package": "sc5338p.tar.gz",
+  "docs": [
+   "doc",
+   "sc5338p",
+   "Cleaned_0x08_SC5336P_MIPI_24Minput_2Lane_10bit_864Mbps_2880x1620_30fps_ECO_外供1.5V.ini"
+  ],
+  "confs": []
+ },
+ {
+  "model": "os04a10",
+  "resolution": "2688×1520（4M）",
+  "interface": "MIPI 2lane（双目）/ 4lane（单目，另有 1lane 件）",
+  "fps": "30fps",
+  "cis_modes": [
+   "1（单目）",
+   "2（双目，主从）"
+  ],
+  "features": "常电、WDR",
+  "source": "sdk_builtin",
+  "package": null,
+  "docs": [],
+  "confs": [
+   "isp_os04a10_mipi_2lane_av200_dual.conf",
+   "isp_os04a10_mipi_4lane_av200.conf"
+  ]
+ },
+ {
+  "model": "sc450ai",
+  "resolution": "2688×1520（4M）",
+  "interface": "MIPI 2lane",
+  "fps": "30fps",
+  "cis_modes": [
+   "1（单目）"
+  ],
+  "features": "常电",
+  "source": "sdk_builtin",
+  "package": null,
+  "docs": [],
+  "confs": [
+   "isp_sc450ai_mipi_2lane_av200.conf"
+  ]
+ },
+ {
+  "model": "gc4653",
+  "resolution": "2560×1440（4M）",
+  "interface": "MIPI 2lane",
+  "fps": "30fps（另有 15/20fps 档）",
+  "cis_modes": [
+   "1（单目）",
+   "2（双目，主从）"
+  ],
+  "features": "常电",
+  "source": "sdk_builtin",
+  "package": null,
+  "docs": [],
+  "confs": [
+   "isp_gc4653_mipi_2lane_av200.conf",
+   "isp_gc4653_mipi_2lane_av200_dual.conf"
+  ]
+ },
+ {
+  "model": "sc431hai",
+  "resolution": "2560×1440（4M）",
+  "interface": "MIPI 2lane",
+  "fps": "30fps",
+  "cis_modes": [
+   "1（单目）",
+   "2（双目，主从）"
+  ],
+  "features": "常电",
+  "source": "sdk_builtin",
+  "package": null,
+  "docs": [],
+  "confs": [
+   "isp_sc431hai_mipi_2lane_av200.conf",
+   "isp_sc431hai_mipi_2lane_av200_dual.conf"
+  ]
+ },
+ {
+  "model": "sc4336",
+  "resolution": "2560×1440（4M）",
+  "interface": "MIPI 2lane",
+  "fps": "30fps",
+  "cis_modes": [
+   "2（双目，主从）"
+  ],
+  "features": "常电",
+  "source": "package",
+  "package": "sc4336.tar.gz",
+  "docs": [
+   "doc",
+   "sc4336",
+   "cleaned_0x05_SC4336_MIPI_24Minput_2lane_10bit_420Mbps_2560x1440_20fps.ini",
+   "Cleaned_0x40_SC4336_MIPI_24Minput_2lane_10bit_575Mbps_2560x1440_25fps_5m25_3125x1472.ini",
+   "Cleaned_0x48_SC4336_MIPI_24Minput_2lane_10bit_630Mbps_2560x1440_30fps_slave.ini"
+  ],
+  "confs": []
+ },
+ {
+  "model": "gc3003",
+  "resolution": "2304×1296（3M）",
+  "interface": "MIPI 2lane",
+  "fps": "30fps",
+  "cis_modes": [
+   "1（单目）"
+  ],
+  "features": "常电",
+  "source": "package",
+  "package": "gc3003.tar.gz",
+  "docs": [
+   "doc",
+   "gc3003",
+   "release_v0.5_GC3003_AEC_20220916.c",
+   "release_v1.0_GC3003_2304x1296_24M_30fps_2lane_20230323.txt"
+  ],
+  "confs": []
+ },
+ {
+  "model": "gc2063",
+  "resolution": "1920×1080（2M）",
+  "interface": "MIPI 2lane",
+  "fps": "30fps",
+  "cis_modes": [
+   "1（单目）",
+   "2（双目，主从）"
+  ],
+  "features": "常电",
+  "source": "sdk_builtin",
+  "package": null,
+  "docs": [],
+  "confs": [
+   "isp_gc2063_mipi_2lane_av200.conf",
+   "isp_gc2063_mipi_2lane_av200_dual.conf"
+  ]
+ },
+ {
+  "model": "sc200ai",
+  "resolution": "1920×1080（2M）",
+  "interface": "MIPI 2lane",
+  "fps": "30fps",
+  "cis_modes": [
+   "1（单目）"
+  ],
+  "features": "常电",
+  "source": "sdk_builtin",
+  "package": null,
+  "docs": [],
+  "confs": [
+   "isp_sc200ai_mipi_2lane_av200.conf"
+  ]
+ },
+ {
+  "model": "sc2336",
+  "resolution": "1920×1080（2M）",
+  "interface": "MIPI 2lane",
+  "fps": "30fps",
+  "cis_modes": [
+   "1（单目）"
+  ],
+  "features": "常电",
+  "source": "sdk_builtin",
+  "package": null,
+  "docs": [],
+  "confs": [
+   "isp_sc2336_mipi_2lane_av200.conf"
+  ]
+ },
+ {
+  "model": "sc233ap",
+  "resolution": "1920×1080（2M）",
+  "interface": "MIPI 2lane",
+  "fps": "60fps",
+  "cis_modes": [
+   "1（单目）",
+   "4（四目）"
+  ],
+  "features": "常电",
+  "source": "sdk_builtin",
+  "package": null,
+  "docs": [],
+  "confs": [
+   "isp_sc233ap_mipi_2lane_av200.conf",
+   "isp_sc233ap_mipi_2lane_av200_quad.conf"
+  ]
+ },
+ {
+  "model": "og01a1x",
+  "resolution": "1280×1024",
+  "interface": "MIPI 2lane",
+  "fps": "30fps",
+  "cis_modes": [
+   "2（双目，主从）"
+  ],
+  "features": "常电",
+  "source": "sdk_builtin",
+  "package": null,
+  "docs": [],
+  "confs": [
+   "isp_og01a1x_mipi_2lane_av200_dual.conf"
+  ]
+ },
+ {
+  "model": "oc0tb1b",
+  "resolution": "400×400 / 200×200",
+  "interface": "MIPI 1lane raw10",
+  "fps": "240/480fps",
+  "cis_modes": [
+   "1（单目）"
+  ],
+  "features": "常电、高帧率小分辨率（特种）",
+  "source": "package",
+  "package": "oc0tb1b.tar.gz",
+  "docs": [
+   "doc",
+   "oc0tb1b",
+   "@@ OG0TB_Bin_200x200_480fps_10bit.txt",
+   "@@ OG0TB_Full_400x400_240fps_10bit.txt"
+  ],
+  "confs": []
+ },
+ {
+  "model": "gsg3082",
+  "resolution": "—（BT601 并口收发芯片）",
+  "interface": "DVP/BT601",
+  "fps": "—",
+  "cis_modes": [
+   "—（并口转接）"
+  ],
+  "features": "常电、并口转接（非 MIPI sensor）",
+  "source": "package",
+  "package": "gsg3082.tar.gz",
+  "docs": [],
+  "confs": []
+ }
+]

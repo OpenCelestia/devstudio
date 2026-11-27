@@ -1,0 +1,9 @@
+# platform/include/ak_video.h
+void
+ak_app_video_set_dst_chn_active
+ak_app_video_venc_get_stream
+ak_app_video_unbind_chn
+ak_app_video_bind_chn
+ak_app_video_set_cb
+ak_app_video_unset_cb
+ak_app_video_set_chn_attr

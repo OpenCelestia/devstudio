@@ -1,0 +1,6 @@
+# platform/include/effect_Res.h
+Effect_RES_GetVersionInfo
+Effect_RES_Open
+Effect_RES_Close
+Effect_RES_Process
+Effect_RES_SetAttr

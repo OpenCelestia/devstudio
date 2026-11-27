@@ -1,0 +1,14 @@
+{
+  "id": "anypi_nova",
+  "agentModule": "APP_STUDIO",
+  "agentId": "studio",
+  "agentName": "同步代理(Sync Agent)",
+  "agentSo": "libstudio.so",
+  "agentDest": "/usr/lib/libstudio.so",
+  "agentSrc": "application/services/studio",
+  "usbRoot": "/mnt/install/apps",
+  "usrApps": ["setting"],
+  "builtins": ["studio", "ipc_camera", "camera", "audio_algo", "setting", "volc_engine"],
+  "relaunch": "(sleep 1; killall nova_main ipc_main ipc_home; sleep 1; /usr/sbin/start_ipc_main.sh --bg) >/tmp/studio_relaunch.log 2>&1 &",
+  "procAlias": { "ipc_main": "nova_main" }
+}

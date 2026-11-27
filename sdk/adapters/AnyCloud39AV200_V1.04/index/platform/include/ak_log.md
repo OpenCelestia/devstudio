@@ -1,0 +1,4 @@
+# platform/include/ak_log.h
+AK_BASE_Print
+AK_BASE_PrintSetLevel
+AK_BASE_PrintSetSyslogLevel

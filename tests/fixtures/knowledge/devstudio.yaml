@@ -1,0 +1,5 @@
+state: sdk_customer_app
+release_id: AnyCloud39AV100_V2_V2.05
+build:
+  command: make
+  host: local

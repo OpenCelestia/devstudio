@@ -1,0 +1,6 @@
+release_id: AnyCloud39AV200_V1.04
+family: AnyCloud39AV200
+version: V1.04
+chip: AV200
+libc: musl
+toolchain: riscv64-anyka-linux-musl

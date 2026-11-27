@@ -1,0 +1,11 @@
+# platform/include/ak_demux.h
+AK_MPI_DEMUX_Open
+AK_MPI_DEMUX_Get_Total_Time
+AK_MPI_DEMUX_Get_Video_Info
+AK_MPI_DEMUX_Get_Audio_Info
+AK_MPI_DEMUX_Get_Data
+AK_MPI_DEMUX_Get_Video
+AK_MPI_DEMUX_Get_Audio
+AK_MPI_DEMUX_Free_Data
+AK_MPI_DEMUX_Close
+AK_MPI_DEMUX_Seek_To_Keyframe

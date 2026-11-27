@@ -1,0 +1,52 @@
+{
+  "mcpServers": {
+    "devstudio-project": {
+      "command": "devstudio",
+      "args": [
+        "mcp",
+        "--group",
+        "project"
+      ]
+    },
+    "devstudio-knowledge": {
+      "command": "devstudio",
+      "args": [
+        "mcp",
+        "--group",
+        "knowledge"
+      ]
+    },
+    "devstudio-rules": {
+      "command": "devstudio",
+      "args": [
+        "mcp",
+        "--group",
+        "rules"
+      ]
+    },
+    "devstudio-source": {
+      "command": "devstudio",
+      "args": [
+        "mcp",
+        "--group",
+        "source"
+      ]
+    },
+    "devstudio-build": {
+      "command": "devstudio",
+      "args": [
+        "mcp",
+        "--group",
+        "build"
+      ]
+    },
+    "devstudio-device": {
+      "command": "devstudio",
+      "args": [
+        "mcp",
+        "--group",
+        "device"
+      ]
+    }
+  }
+}

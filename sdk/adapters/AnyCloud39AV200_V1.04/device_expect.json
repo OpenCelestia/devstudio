@@ -1,0 +1,43 @@
+{
+  "release_id": "AnyCloud39AV200_V1.04",
+  "product": "anypi_nova",
+  "config_board": "PDB_MBD_AK3918AV200_ACTCAM",
+  "modules": [
+    "firmware_class",
+    "ak_mci",
+    "ak_venc_adapter",
+    "ak_venc_bridge",
+    "ak_ipu",
+    "ak_pcm",
+    "ak_npu",
+    "cfg80211",
+    "ATBM6162_wifi_sdio",
+    "ak_vi",
+    "sensor_ov8856",
+    "vcm_fp5510",
+    "ak_vicap",
+    "ak_isp",
+    "ak_pp",
+    "i2c_algo_bit",
+    "ak_gpio_i2c",
+    "ak_sc7u22"
+  ],
+  "nodes": [
+    "/dev/input/event0",
+    "/dev/vicap-0-0-0"
+  ],
+  "processes": [
+    "nova_main",
+    "studio"
+  ],
+  "mounts": [
+    "/mnt/install"
+  ],
+  "sources": [
+    "project\\anypi_nova\\system\\AnyCloud39AV200\\V1.04\\board\\PDB_MBD_AK3918AV200_ACTCAM\\rootfs\\utils\\etc\\config\\app_01_start.sh",
+    "project\\anypi_nova\\system\\AnyCloud39AV200\\V1.04\\board\\PDB_MBD_AK3918AV200_ACTCAM\\rootfs\\utils\\etc\\config\\app_02_load.sh",
+    "project\\anypi_nova\\system\\AnyCloud39AV200\\V1.04\\patch\\rootfs\\utils\\usr\\sbin\\wifi_driver.sh",
+    "project\\anypi_nova\\system\\AnyCloud39AV200\\V1.04\\patch\\rootfs\\utils\\usr\\sbin\\ov8856.sh",
+    "project\\anypi_nova\\system\\AnyCloud39AV200\\V1.04\\patch\\rootfs\\utils\\usr\\sbin\\imu_driver.sh"
+  ]
+}

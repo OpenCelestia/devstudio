@@ -1,0 +1,5 @@
+state: sdk_celestia
+release_id: AnyCloud39AV200_V1.04
+build:
+  command: ./build.sh --product-name anypi_nova
+  host: wsl

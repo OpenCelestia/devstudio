@@ -1,0 +1,19 @@
+# platform/include/ak_vpss.h
+AK_MPI_VPSS_GetVersion
+AK_MPI_VPSS_GetConfVersion
+AK_MPI_VPSS_CreateGrp
+AK_MPI_VPSS_StartGrp
+AK_MPI_VPSS_SetGrpAttr
+AK_MPI_VPSS_GetChnAttr
+AK_MPI_VPSS_StopGrp
+AK_MPI_VPSS_SetChnAttr
+AK_MPI_VPSS_GetGrpAttr
+AK_MPI_VPSS_EnableChn
+AK_MPI_VPSS_DisableChn
+AK_MPI_VPSS_GetFrame
+AK_MPI_VPSS_ReleaseFrame
+AK_MPI_VPSS_BindChn
+AK_MPI_VPSS_DestroyGrp
+AK_MPI_VPSS_GetGrpFrame
+AK_MPI_VPSS_ReleaseGrpFrame
+AK_MPI_VPSS_SetStitchChn

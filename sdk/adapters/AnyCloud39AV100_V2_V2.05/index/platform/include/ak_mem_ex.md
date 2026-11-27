@@ -1,0 +1,5 @@
+# platform/include/ak_mem_ex.h
+ak_app_mem_ex_dma_pool_set_vi_policy
+ak_app_mem_ex_dma_pool_set_venc_policy
+ak_app_mem_ex_dma_pool_activate
+ak_app_mem_ex_dma_pool_exit

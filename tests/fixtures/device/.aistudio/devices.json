@@ -1,0 +1,1 @@
+[{"board": "192.168.1.20", "product": "anypi_nova", "usr_size": "9.8MB", "app_mtd": "/dev/mtd5", "metrics": {"uptime": "3h12m", "cpu": "37%", "mem": "61%", "load": "1.20 0.98 0.85", "temp": "52\u00b0C", "rx": "1.2MB", "tx": "8.4MB", "top": "nova_main 22%"}}]

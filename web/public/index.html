@@ -1,0 +1,2031 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title data-i18n="brand">Celestia Studio</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    display: grid;
+    grid-template-rows: 44px 1fr;
+    grid-template-columns: minmax(540px, 40vw) 14px minmax(400px, 1fr);
+    background: #10141c; color: #e8eef6;
+    font: 15px/1.45 "Segoe UI", "Microsoft YaHei", sans-serif;
+    height: 100vh; overflow: hidden;
+  }
+  #topbar {
+    grid-column: 1 / -1;
+    display: flex; align-items: center; gap: 10px; padding: 0 12px;
+    height: 44px; flex-wrap: nowrap; overflow: hidden;
+    background: #161b24; border-bottom: 1px solid #2a3344;
+  }
+  #dot { width: 10px; height: 10px; border-radius: 50%; background: #e5484d; flex: none; }
+  #dot.on { background: #46c96b; }
+  #devname { color: #c5d0de; font-size: 13px; }
+  #devHost { width: 11.5em; cursor: text; padding: 4px 8px; font-family: Consolas, monospace; }
+  #btnDev { padding: 4px 10px; }
+  #langPick { flex: none; padding: 4px 8px; }
+  .spacer { flex: 1; }
+  #btnLlmPage {
+    flex: none; max-width: 22em; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  #llmPage {
+    display: none; position: fixed; z-index: 6;
+    left: 0; right: 0; top: 44px; bottom: 0;
+    background: #10141c; padding: 24px 32px; overflow: auto;
+  }
+  #llmPage.on { display: block; }
+  .llmHead { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
+  .llmForm { display: flex; flex-direction: column; gap: 12px; max-width: 640px; }
+  .llmForm label { display: flex; align-items: center; gap: 12px; }
+  .llmForm label span { width: 7.2em; color: #b7c3d4; flex: none; }
+  .llmForm select, .llmForm input { flex: 1; min-width: 0; }
+  #llmStat { color: #9fb0c3; font-size: 14px; }
+  button, select, input, textarea {
+    background: #1c2433; color: #e8eef6; border: 1px solid #3a465c;
+    border-radius: 6px; padding: 6px 12px; font-size: 14px; cursor: pointer;
+  }
+  textarea { cursor: text; resize: none; }
+  button:hover { background: #273246; }
+  button.primary { background: #2563eb; border-color: #2563eb; }
+  button.primary:hover { background: #3b76f0; }
+  button.on { background: #2563eb; border-color: #2563eb; }
+  button:disabled { opacity: .45; cursor: default; }
+  #leftCol {
+    grid-column: 1; grid-row: 2;
+    display: flex; flex-direction: column; min-height: 0; min-width: 0;
+    align-items: stretch;
+  }
+  #videoWrap {
+    position: relative; background: #000; overflow: hidden;
+    flex: 0 0 auto;
+    width: 100%;
+    aspect-ratio: 5 / 3;
+    max-height: calc(100% - 9.2rem);
+    min-height: 0;
+  }
+  #screen {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%; max-width: none; max-height: none;
+    object-fit: contain; object-position: left center;
+    cursor: crosshair; touch-action: none;
+  }
+  #snapHint {
+    position: absolute; left: 8px; bottom: 6px; color: #d5deea; font-size: 13px;
+    background: rgba(0,0,0,.45); padding: 2px 6px; border-radius: 4px;
+  }
+  #syncOff {
+    display: none; position: absolute; inset: 0;
+    flex-direction: column; align-items: center; justify-content: center; gap: 14px;
+    color: #d5deea; background: #10141c;
+  }
+  #syncOff p { font-size: 16px; }
+  #videoWrap.off #screen, #videoWrap.off #snapHint { display: none; }
+  #videoWrap.off #syncOff { display: flex; }
+  #split {
+    grid-column: 2; grid-row: 2;
+    background: #070a10;
+    border-left: 2px solid #8ea0b8;
+    border-right: 2px solid #8ea0b8;
+  }
+  #right {
+    grid-column: 3; grid-row: 2;
+    display: flex; flex-direction: column; min-height: 0; min-width: 0;
+    background: #121820;
+  }
+  #metrics {
+    flex: 1 1 0;
+    display: flex; flex-direction: column; gap: 6px;
+    min-height: 9.2rem; min-width: 0; overflow: hidden;
+    padding: 6px 10px 8px; background: #121820; border-top: 2px solid #8ea0b8;
+  }
+  #metricSummary {
+    flex: none; display: flex; flex-direction: column; gap: 4px;
+    font-size: 14px; line-height: 1.4; color: #b7c3d4;
+  }
+  #metricSummary .metricLine {
+    display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 16px;
+    min-width: 0;
+  }
+  #metricSummary .chip {
+    display: flex; align-items: baseline; gap: 6px; flex: 0 0 auto;
+    white-space: nowrap;
+  }
+  #metricSummary .chip[hidden] { display: none; }
+  #metricSummary .chip-cpu { flex-direction: row; align-items: baseline; gap: 10px; }
+  #metricSummary .cpuRow { display: flex; align-items: baseline; gap: 6px; }
+  #metricSummary .chipLab { color: #8ea0b8; font-size: 13px; flex: none; }
+  #metricSummary b {
+    color: #e8eef6; font-weight: 600; flex: none;
+    font: 600 14px/1.4 Consolas, "Cascadia Mono", monospace;
+    font-variant-numeric: tabular-nums;
+  }
+  #metricSummary .chipSub {
+    color: #9fb0c3; font-size: 13px; flex: none;
+    font: 13px/1.4 Consolas, "Cascadia Mono", monospace;
+    font-variant-numeric: tabular-nums;
+  }
+  #procCol { flex: 1 1 0; min-height: 0; width: 100%; overflow-x: hidden; overflow-y: auto; }
+  table.top {
+    width: 100%; table-layout: fixed; border-collapse: separate; border-spacing: 0;
+    font: 13px/18px Consolas, "Cascadia Mono", monospace;
+  }
+  table.top th {
+    position: sticky; top: 0; z-index: 1; background: #121820;
+    font-size: 13px; font-weight: 600;
+    overflow: visible;
+    text-overflow: clip;
+    padding: 0 5px;
+    white-space: nowrap;
+    text-align: right;
+    color: #b7c3d4;
+  }
+  table.top td {
+    height: 18px; padding: 0 4px;
+    overflow: hidden; white-space: nowrap;
+    text-overflow: ellipsis; text-align: right; color: #d5deea;
+  }
+  table.top th:first-child, table.top td:first-child,
+  table.top th:last-child, table.top td:last-child { text-align: left; }
+  table.top .c-name { width: 24%; }
+  table.top .c-tid { width: 13%; }
+  table.top .c-st { width: 7%; }
+  table.top .c-cpu { width: 15%; }
+  table.top .c-res { width: 0; }
+  table.top .c-tm { width: 15%; }
+  table.top td:first-child { max-width: 0; }
+  th { color: #b7c3d4; font-weight: 600; border-bottom: 1px solid #2a3344; }
+  #logBar { display: flex; gap: 8px; padding: 8px 10px; align-items: center; flex-wrap: wrap; border-top: 1px solid #2a3344; }
+  #logBar b { flex: none; font-size: 14px; letter-spacing: .04em; }
+  #logFilter { flex: 1; padding: 4px 8px; }
+  #log {
+    flex: 1; min-height: 0; overflow: auto; padding: 0 12px 8px;
+    font: 14px/1.5 Consolas, "Cascadia Mono", monospace; color: #e8eef6;
+  }
+  #log .logLine {
+    display: block; white-space: pre-wrap; word-break: break-all;
+  }
+  .lv0, .lv7, .tag-kmsg { color: #c5d0de; }
+  .lv2 { color: #b7c3d4; }
+  .lv3 { color: #e6c36a; }
+  .lv4, .lv5 { color: #ff8b8b; }
+  .lv6 { color: #e8eef6; }
+  .tag-pc { color: #8ec5ff; }
+  .tag-serial { color: #9ddeb5; }
+  #serPort { width: 5.6em; flex: none; }
+  #console {
+    flex: 1 1 0; display: flex; flex-direction: column; min-height: 0;
+    background: #0e141d;
+  }
+  #tabs {
+    flex: none; display: flex; gap: 8px; padding: 8px 10px; align-items: center;
+    background: #161b24; border-bottom: 1px solid #2a3344;
+  }
+  .pane { display: none; flex: 1; min-height: 0; flex-direction: column; }
+  .pane.on { display: flex; }
+  .out {
+    flex: 1; min-height: 0; overflow: auto; padding: 6px 12px;
+    white-space: pre-wrap; word-break: break-all;
+    font: 14px/1.45 Consolas, "Cascadia Mono", monospace; color: #e8eef6;
+  }
+  .cmdline { display: flex; gap: 8px; padding: 8px 10px; align-items: center; flex-wrap: wrap; border-top: 1px solid #2a3344; }
+  .cmdline input, .cmdline select { font-family: Consolas, monospace; }
+  .cmdline input { flex: 1 1 160px; min-width: 0; }
+  .cmdline button { flex: none; }
+  .filePanel {
+    flex: 0 1 auto; display: flex; flex-direction: column; min-height: 0; max-height: 42vh;
+    border-top: 1px solid #2a3344; background: #0e141d;
+  }
+  #pane-build.editing #buildout { flex: 0 1 26%; min-height: 64px; max-height: 32vh; }
+  #pane-build.editing .filePanel { flex: 1 1 auto; max-height: none; min-height: 8em; }
+  .fileDir {
+    display: none; flex: 0 1 auto; margin: 0 10px 6px; max-height: 22vh; overflow: auto;
+    border: 1px solid #2a3344; border-radius: 4px; background: #0c1018;
+    font: 13px/1.55 Consolas, "Cascadia Mono", monospace;
+  }
+  .fileDir.on { display: block; }
+  .fileDirHead { padding: 4px 10px; color: #9fb0c3; border-bottom: 1px solid #2a3344; font-size: 12px; }
+  .fileDirRow {
+    padding: 3px 10px; cursor: pointer; user-select: none;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .fileDirRow:hover { background: #1a2430; }
+  .fileDirRow.dir { color: #b7d4ff; }
+  .fileDirRow.file { color: #d5deea; }
+  .fileDirRow.up { color: #e6c36a; }
+  #buildBar.cmdline {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 6px;
+    padding: 8px 10px;
+    align-items: center;
+    border-top: 1px solid #2a3344;
+    overflow-x: auto;
+    min-width: 0;
+  }
+  #buildBar input { flex: 1 1 8em; min-width: 0; width: 100%; }
+  #buildBar button { flex: none; padding: 4px 8px; font-size: 13px; white-space: nowrap; }
+  button.iconGo {
+    width: 34px; height: 34px; padding: 0; flex: none;
+    display: inline-flex; align-items: center; justify-content: center;
+    border-radius: 8px;
+  }
+  button.iconGo svg { display: block; pointer-events: none; }
+  button.iconGo.busy {
+    border-radius: 4px; background: #c4373c; border-color: #c4373c;
+  }
+  button.iconGo.busy:hover { background: #d84b50; }
+  #buildBar button.iconGo, #llmBar button.iconGo { padding: 0; }
+  #fileHint { display: none; margin: 0 12px 6px; font-size: 13px; line-height: 1.4; color: #e6c36a; }
+  #fileHint.on { display: block; }
+  #fileHint.err { color: #ff8b8b; }
+  #fileBar {
+    display: none; gap: 8px; align-items: center;
+    margin: 4px 10px 0; padding: 4px 8px;
+    border: 1px solid #2a3344; border-radius: 4px; background: #0c1018;
+    font: 13px/1.4 Consolas, "Cascadia Mono", monospace;
+  }
+  #fileBar.on { display: flex; }
+  #fileBar[hidden] { display: none; }
+  #filePath { color: #9fb0c3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; flex: 1 1 auto; }
+  #fileDirty { display: none; color: #e6c36a; flex: none; font-size: 12px; line-height: 1; }
+  #fileDirty.on { display: inline; }
+  #fileBar .spacer { flex: 0 0 auto; width: 8px; }
+  #fileBar button { flex: none; padding: 3px 10px; font-size: 13px; white-space: nowrap; }
+  #fileBar button:disabled { opacity: .45; }
+  #fileBar[data-mode="dir"] #btnFileRevert, #fileBar[data-mode="dir"] #btnFileSave,
+  #fileBar[data-mode="dir"] #fileDirty { display: none; }
+  #fileBar:not([data-mode="dir"]) #btnFileUp { display: none; }
+  #fileBody {
+    display: none; flex: 1 1 120px; min-height: 96px; max-height: 30vh;
+    margin: 0 10px 8px; width: calc(100% - 20px); resize: vertical;
+    font: 13px/1.45 Consolas, "Cascadia Mono", monospace;
+    color: #e8eef6; background: #0c1018; border: 1px solid #2a3344; border-radius: 4px;
+    box-sizing: border-box; padding: 6px 8px;
+  }
+  #pane-build.editing #fileBody.on { max-height: none; min-height: 10em; }
+  #fileBody.on { display: block; }
+  #llmMode, #llmApp { flex: 0 0 auto; }
+  .dock {
+    flex: 0 1 auto; display: flex; flex-direction: column; gap: 8px;
+    min-height: 0; max-height: 100%; overflow: hidden;
+    padding: 8px 10px 10px; border-top: 1px solid #2a3344; background: #121820;
+  }
+  #llmText {
+    flex: none; height: 72px; margin: 0; width: 100%;
+    font: 14px/1.45 "Segoe UI", "Microsoft YaHei", sans-serif;
+  }
+  #llmBar { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; flex: none; }
+  #llmBar .llmBarSpacer { flex: 1; min-width: 8px; }
+  #pane-llm { overflow: hidden; }
+  #askBox {
+    display: flex; flex-direction: column; gap: 8px;
+    flex: 1 1 auto; min-height: 0; overflow: hidden;
+    padding: 8px; border: 1px solid #3d5a40; border-radius: 6px; background: #152018;
+  }
+  #askBox[hidden] { display: none; }
+  #askTitle { font-weight: 600; flex: none; }
+  #askHint, #askErr { margin: 0; flex: none; font-size: 13px; line-height: 1.4; color: #b7c3d4; }
+  #askErr:empty { display: none; }
+  #askErr { color: #ffb4b4; }
+  #askBody {
+    flex: 1 1 auto; min-height: 0; overflow: auto;
+  }
+  #askGo { flex: none; align-self: flex-start; }
+  #askBody label.askField, #askBody fieldset {
+    display: flex; flex-direction: column; gap: 4px; margin: 0 0 8px; border: 0; padding: 0;
+  }
+  #askBody input[type="text"], #askBody textarea { width: 100%; box-sizing: border-box; }
+  #askBody fieldset label { flex-direction: row; align-items: flex-start; }
+  .subhead { color: #b7c3d4; font-size: 13px; padding: 8px 12px 0; }
+</style>
+</head>
+<body>
+  <div id="topbar">
+    <span id="dot"></span>
+    <b data-i18n="brand">Celestia Studio</b>
+    <select id="langPick" title="Language">
+      <option value="zh">中文</option>
+      <option value="en">English</option>
+    </select>
+    <span id="devname" data-i18n="disconnected">未连接</span>
+    <input id="devHost" data-i18n-ph="devHostPh" placeholder="设备 IP" spellcheck="false" autocomplete="off">
+    <button id="btnDev" type="button" data-i18n="connect">连接</button>
+    <span class="spacer"></span>
+    <button id="btnLlmPage" type="button" data-i18n="models">大模型</button>
+    <button id="btnSnap" data-i18n="snap">截图</button>
+    <button id="btnReboot" data-i18n="reboot">重启设备</button>
+    <button id="btnSync" data-i18n="syncClose">关闭同步界面</button>
+  </div>
+
+  <div id="llmPage">
+    <div class="llmHead">
+      <button id="btnLlmBack" type="button" data-i18n="back">返回</button>
+      <b data-i18n="models">大模型</b>
+      <span id="llmStat" data-i18n="disconnected">未连接</span>
+    </div>
+    <div class="llmForm">
+      <label><span data-i18n="source">来源</span><select id="llmProvider" data-i18n-title="models" title="大模型"></select></label>
+      <label id="llmModelRow"><span data-i18n="model">模型</span><select id="llmModel" data-i18n-title="model" title="模型"></select></label>
+      <label id="llmCustomRow" hidden><span data-i18n="modelId">模型 ID</span><input id="llmModelCustom" data-i18n-ph="modelIdPh" placeholder="模型 ID" spellcheck="false" autocomplete="off"></label>
+      <label id="llmKeyRow"><span data-i18n="key">密钥</span><input id="llmKey" type="password" placeholder="API Key" spellcheck="false" autocomplete="off"></label>
+      <label id="llmBaseRow" hidden><span data-i18n="endpoint">接口</span><input id="llmBase" data-i18n-ph="endpointPh" placeholder="接口地址" spellcheck="false" autocomplete="off"></label>
+      <div>
+        <button id="btnLlmSave" type="button" data-i18n="save">保存</button>
+        <button id="btnLlmAuth" type="button" data-i18n="check">验证</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="leftCol">
+  <div id="videoWrap">
+    <img id="screen" data-i18n-alt="screenAlt" alt="设备画面" draggable="false">
+    <span id="snapHint" data-i18n="snapHint">鼠标点按、拖动画面</span>
+    <div id="syncOff">
+      <p data-i18n="syncOffMsg">同步界面已关闭，可以再次打开</p>
+      <button id="btnSyncOpen" type="button" data-i18n="syncOpen">打开同步界面</button>
+    </div>
+  </div>
+  <div id="metrics">
+      <div id="metricSummary">
+        <div class="metricLine">
+          <span class="chip chip-up"><span class="chipLab" data-i18n="uptime">运行</span><b id="mUp">--:--:--</b></span>
+          <span class="chip chip-cpu">
+            <span class="cpuRow"><span class="chipLab">CPU1:</span><b id="mCpu0">--</b></span>
+            <span class="cpuRow"><span class="chipLab">CPU2:</span><b id="mCpu1">--</b></span>
+            <span class="cpuRow"><span class="chipLab">负载</span><span class="chipSub" id="mLoad">--</span></span>
+          </span>
+          <span class="chip chip-temp" id="chipTemp" hidden><span class="chipLab" data-i18n="temp">温度</span><b id="mTemp">--</b></span>
+        </div>
+        <div class="metricLine">
+          <span class="chip chip-mem"><span class="chipLab" data-i18n="memory">内存</span><b id="mMemPct">--</b><span class="chipSub" id="mMemTxt"></span></span>
+          <span class="chip chip-net"><span class="chipLab" data-i18n="net">网络</span><b id="mNet">--</b></span>
+        </div>
+      </div>
+      <div id="procCol">
+      <table class="top">
+        <colgroup>
+          <col class="c-name"><col class="c-tid"><col class="c-tid"><col class="c-st"><col class="c-cpu"><col class="c-tm">
+        </colgroup>
+        <thead><tr><th data-i18n="thread">线程</th><th>TID</th><th>PID</th><th>S</th><th>CPU%</th><th>TIME</th></tr></thead>
+        <tbody id="mProcs"></tbody>
+      </table>
+      </div>
+    </div>
+  </div>
+  <div id="split"></div>
+
+  <div id="right">
+    <div id="console">
+    <div id="tabs">
+      <button class="on" data-pane="build" data-i18n="tabCmd">设备命令</button>
+      <button data-pane="llm" data-i18n="tabGen">生成与推送</button>
+      <button data-pane="log" data-i18n="logTitle">设备日志</button>
+    </div>
+    <div class="pane on" id="pane-build">
+      <div id="buildout" class="out"></div>
+      <div id="filePanel" class="filePanel">
+        <div id="fileHint"></div>
+        <div id="fileBar" hidden>
+          <span id="filePath"></span>
+          <span id="fileDirty" data-i18n-title="fileDirtyTip" title="已修改未保存">●</span>
+          <span class="spacer"></span>
+          <button id="btnFileUp" type="button" data-i18n="fileBack" data-i18n-title="fileBackTip" title="返回上级目录">上一级</button>
+          <button id="btnFileRevert" type="button" data-i18n="fileRevert">还原</button>
+          <button id="btnFileSave" type="button" data-i18n="fileSave" data-i18n-title="fileSaveTip" title="保存（Ctrl+S）" disabled>保存</button>
+          <button id="btnFileClose" type="button" data-i18n="fileClose" data-i18n-title="fileCloseTip" title="关闭（Esc）">关闭</button>
+        </div>
+        <div id="fileDir" hidden></div>
+        <textarea id="fileBody" spellcheck="false" hidden></textarea>
+      </div>
+      <div class="cmdline" id="buildBar">
+        <input id="buildIn" data-i18n-ph="buildInPh" placeholder="命令如 ps | head，或路径如 /etc/config/settings.json" spellcheck="false" autocomplete="off">
+        <button id="btnFileRead" type="button" data-i18n="fileOpen">打开</button>
+        <button id="btnMntRw" type="button" data-i18n="mntRw" data-i18n-title="mntRwTip" title="mount -o remount,rw /mnt" hidden>挂载可写</button>
+        <button id="btnRun" class="iconGo primary" type="button" title="执行" aria-label="执行"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M8 2.2 3.1 7.3h3.2v6.5h3.4V7.3h3.2L8 2.2z"/></svg></button>
+      </div>
+    </div>
+    <div class="pane" id="pane-llm">
+      <div class="subhead" data-i18n="tabRun">执行状态</div>
+      <div id="wslout" class="out"></div>
+      <div class="dock">
+        <div id="llmBar">
+          <select id="llmMode">
+            <option value="edit" data-i18n="modeEdit">修改APP</option>
+            <option value="new" data-i18n="modeNew">新增APP</option>
+            <option value="delete" data-i18n="modeDel">删除APP</option>
+          </select>
+          <select id="llmApp"></select>
+          <button id="btnProgressDel" type="button" data-i18n="progressDel" hidden>删除</button>
+          <input id="llmNew" data-i18n-ph="newIdPh" placeholder="新应用 id，中文或英文，如 天气 或 weather" spellcheck="false" hidden>
+          <button id="btnLlm" class="iconGo primary" type="button" title="执行" aria-label="执行"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M8 2.2 3.1 7.3h3.2v6.5h3.4V7.3h3.2L8 2.2z"/></svg></button>
+          <span class="llmBarSpacer"></span>
+          <button id="btnPushAgent" type="button" data-i18n="sysAgent" data-i18n-title="sysAgentTip" title="编译并写入用户区，然后重启设备">同步代理</button>
+          <button id="btnPushSetting" type="button" data-i18n="sysSetting" data-i18n-title="sysSettingTip" title="编译并写入用户区，然后重启设备">设置</button>
+        </div>
+        <textarea id="llmText" data-i18n-ph="llmPh" placeholder="用文字描述要改的行为或新 APP 的界面和功能。修改和新增都会编译，再推到设备。"></textarea>
+        <div id="askBox" hidden>
+          <div id="askTitle"></div>
+          <p id="askHint"></p>
+          <p id="askErr"></p>
+          <div id="askBody"></div>
+          <button id="askGo" type="button" data-i18n="askContinue">继续</button>
+        </div>
+      </div>
+    </div>
+    <div class="pane" id="pane-log">
+      <div id="log"></div>
+      <div id="logBar">
+        <select id="serPort" data-i18n-title="serial" title="串口"></select>
+        <button id="btnSer" type="button" data-i18n="serOpen">串口</button>
+        <input id="logFilter" data-i18n-ph="logFilterPh" placeholder="过滤设备日志…">
+        <button id="btnClearLog" data-i18n="clear">清空</button>
+        <button id="btnSaveLog" data-i18n="export">导出</button>
+      </div>
+    </div>
+    </div>
+  </div>
+
+<script>
+const I18N = {
+  zh: {
+    brand: 'Celestia Studio', disconnected: '未连接', connecting: '正在连接 {ip}', connected: '已连接 {ip}',
+    connectFail: '连接失败', devHostPh: '设备 IP', connect: '连接', models: '大模型', snap: '截图', reboot: '重启设备',
+    syncClose: '关闭同步界面', syncOpen: '打开同步界面', back: '返回', source: '来源', model: '模型', modelId: '模型 ID',
+    modelIdPh: '模型 ID', key: '密钥', endpoint: '接口', endpointPh: '接口地址', save: '保存', check: '验证', signIn: '登录',
+    signingIn: '正在打开登录', checkingKey: '正在验证密钥', keySaved: '已保存，可更换', pickModel: '请选择模型',
+    customModel: '自定义模型', notSelected: '未选择', linked: '已连接 {label}', unlinked: '未连接 {label}',
+    usingPending: '{using}。页面里已改成 {picked}，点保存后才会换成它。', usingNote: '{using}。{text}',
+    noProvider: '没有可选的大模型', screenAlt: '设备画面', snapHint: '鼠标点按、拖动画面',
+    snapHintFb: 'fb {w}x{h} · 鼠标点按画面',     syncOffMsg: '同步界面已关闭，可以再次打开', uptime: '运行', day: '天',
+    memory: '内存', temp: '温度', net: '网络', thread: '线程', logTitle: '设备日志', serial: '串口', serOpen: '串口',
+    serClose: '断开', logFilterPh: '过滤设备日志…', clear: '清空', export: '导出', tabCmd: '设备命令', tabRun: '执行状态',
+    tabGen: '生成与推送', run: '执行', stopJob: '停止', stopped: '已停止\n',
+    buildInPh: '命令如 ps | head；路径回车或点打开，如 /etc/config/settings.json',
+    fileOpen: '打开', fileRead: '打开', fileSave: '保存', fileSaveAsk: '写回设备上的 {path}？',
+    fileReadOk: '已读取 {path}（{size} 字节）', fileSaveOk: '已保存 {path}（{size} 字节）',
+    fileListOk: '目录 {path}（{n} 项）', fileDirUp: '.. 上一级', fileDirEmpty: '（空目录）',
+    fileClose: '关闭', fileRevert: '还原', fileSaveTip: '保存（Ctrl+S）', fileCloseTip: '关闭（Esc）',
+    fileDirtyTip: '已修改未保存', fileRevertAsk: '放弃修改，恢复成设备上的 {path} 原内容？',
+    fileLoseAsk: '{path} 有未保存的修改，关掉后改动会丢失。继续？',
+    fileBack: '上一级', fileBackTip: '返回上级目录',
+    apiEmpty: '接口无返回。请用 start-windows.cmd 启动同步服务并刷新；页面地址须与控制台端口一致（默认 8081）。',
+    api404: '当前端口上的服务过旧或无文件接口。请关掉旧 node 窗口，重新运行 start-windows.cmd，用控制台打印的地址打开页面。',
+    fileAllowHint: '可写前缀：/tmp/、/etc/config/、/mnt/、/usr/apps/、/usr/data/、/usr/lib/',
+    mntRw: '挂载可写', mntRwTip: 'mount -o remount,rw /mnt',
+    mntRoHint: '/mnt 为只读，写入前请先点「挂载可写」。',
+    mntRwOk: '已 remount，/mnt 可写：{out}', mntRwFail: 'remount 失败：{out}',
+    wslPh: '编译命令，或写下要修的编译问题', modeEdit: '修改APP', modeNew: '新增APP',
+    sysAgent: '同步代理', sysSetting: '设置',
+    sysAgentTip: '编译并写入用户区，然后重启设备', sysSettingTip: '编译并写入用户区，然后重启设备',
+    sysPushAsk: '推送{label}会编译并写入用户区，然后重启设备。继续？',
+    sysPushHead: '\n# 推送{label}\n', sysPushDone: '状态：{label}已推送，设备会重启。\n',
+    modeDel: '删除APP', newIdPh: '新应用 id，中文或英文，如 天气 或 weather', del: '删除',
+    llmPh: '用文字描述要改的行为或新 APP 的界面和功能。修改和新增都会编译，再推到设备。',
+    snapFail: '截图失败', rebootAsk: '确认重启设备？', noSerial: '没有找到串口', fixHead: '\n# 大模型修编译 {app}\n',
+    treeHead: '\n# 项目目录\n', noAdded: '没有可删除的后加应用', noApp: '没有应用',
+    delAsk: '删除应用 {label}？电脑上的源码和设备上的安装目录都会去掉，并重启设备上的主应用程序，画面会短暂断开。', delHead: '\n# 删除 APP {label}\n',
+    newAsk: '将在设备上增加应用 {label}。完成后会重启主应用程序，画面会短暂断开。继续？',
+    needId: '新增 APP 需要填写 id，中文或英文都可以。\n', genHead: '\n# 生成与推送\n',
+    genStarted: '状态：已开始 {act} {target}\n', genAsk: '需求：\n', actNew: '新增', actEdit: '修改',
+    appPartial: '（未完成）', appProgress: '（进行中）', newSlot: '新应用',
+    progressDel: '删除',
+    stepsNew: '步骤：确认中文名、英文名和目录 id；若这个 id 已有生成，再选择继续还是删除后重来 → 1 生成或接着改 → 2 检查，不通过则改一次 → 3 编译，源码报错定位后修改再编 → 4 推送到设备并显示\n',
+    stepsContinue: '步骤：继续进行中的应用，不再确认名称，也不再询问是否删除后重来 → 1 接着改 → 2 检查，不通过则改一次 → 3 编译，源码报错定位后修改再编 → 4 推送到设备并显示\n',
+    stepsEdit: '步骤：1 修改代码 → 2 检查，不通过则改一次 → 3 编译，源码报错定位后修改再编 → 4 推送到设备并显示\n',
+    genQueued: '状态：已开始执行，过程写在下面。要选择或需求不清楚时会先问你。\n',
+    genSubmitFail: '状态：提交失败 {status}\n', genFail: '状态：失败 {err}\n',
+    apiDown: '连不上 Studio 服务。请重新打开 Studio 后再试。',
+    cancelJob: '停止', cancelNeed: '上一次还在进行，先点停止。\n',
+    askContinue: '继续',
+  },
+  en: {
+    brand: 'Celestia Studio', disconnected: 'Not connected', connecting: 'Connecting {ip}', connected: 'Connected {ip}',
+    connectFail: 'Connect failed', devHostPh: 'Device IP', connect: 'Connect', models: 'Models', snap: 'Screenshot', reboot: 'Reboot',
+    syncClose: 'Hide view', syncOpen: 'Show view', back: 'Back', source: 'Source', model: 'Model', modelId: 'Model ID',
+    modelIdPh: 'Model ID', key: 'Key', endpoint: 'Endpoint', endpointPh: 'Endpoint URL', save: 'Save', check: 'Check', signIn: 'Sign in',
+    signingIn: 'Opening sign-in', checkingKey: 'Checking key', keySaved: 'Saved. Enter a new one to replace it', pickModel: 'Choose a model',
+    customModel: 'Custom model', notSelected: 'Not selected', linked: 'Connected {label}', unlinked: 'Not connected {label}',
+    usingPending: '{using}. The page now shows {picked}. Save to switch to it.', usingNote: '{using}. {text}',
+    noProvider: 'No model source to choose', screenAlt: 'Device screen', snapHint: 'Click and drag the picture',
+    snapHintFb: 'fb {w}x{h} · click the picture', syncOffMsg: 'Sync view is closed. Open it again.', uptime: 'Up', day: 'd ',
+    memory: 'Memory', temp: 'Temp', net: 'Net', thread: 'Thread', logTitle: 'Device log', serial: 'Serial', serOpen: 'Serial',
+    serClose: 'Close', logFilterPh: 'Filter device log…', clear: 'Clear', export: 'Export', tabCmd: 'Device', tabRun: 'Status',
+    tabGen: 'Generate', run: 'Run', stopJob: 'Stop', stopped: 'Stopped\n',
+    buildInPh: 'Command e.g. ps | head; path + Enter/Open e.g. /etc/config/settings.json',
+    fileOpen: 'Open', fileRead: 'Open', fileSave: 'Save', fileSaveAsk: 'Write back to {path} on the device?',
+    fileReadOk: 'Read {path} ({size} bytes)', fileSaveOk: 'Saved {path} ({size} bytes)',
+    fileListOk: 'Directory {path} ({n} items)', fileDirUp: '.. up', fileDirEmpty: '(empty)',
+    fileClose: 'Close', fileRevert: 'Revert', fileSaveTip: 'Save (Ctrl+S)', fileCloseTip: 'Close (Esc)',
+    fileDirtyTip: 'Modified, not saved yet', fileRevertAsk: 'Discard changes and restore {path} from the device?',
+    fileLoseAsk: '{path} has unsaved changes. Close and lose them?',
+    fileBack: 'Up', fileBackTip: 'Go to the parent directory',
+    apiEmpty: 'Empty API response. Start via start-windows.cmd and refresh; page URL must match the server port (default 8081).',
+    api404: 'The server on this port is too old or has no file API. Close old node windows, run start-windows.cmd again, open the URL from the console.',
+    fileAllowHint: 'Allowed prefixes: /tmp/, /etc/config/, /mnt/, /usr/apps/, /usr/data/, /usr/lib/',
+    mntRw: 'Remount RW', mntRwTip: 'mount -o remount,rw /mnt',
+    mntRoHint: '/mnt is read-only. Click Remount RW before saving.',
+    mntRwOk: 'Remounted. /mnt is writable: {out}', mntRwFail: 'Remount failed: {out}',
+    wslPh: 'Build command, or the error to fix', modeEdit: 'Edit app', modeNew: 'New app',
+    sysAgent: 'Sync Agent', sysSetting: 'Settings',
+    sysAgentTip: 'Compile into the user area, then reboot the device', sysSettingTip: 'Compile into the user area, then reboot the device',
+    sysPushAsk: 'Pushing {label} compiles it into the user area and reboots the device. Continue?',
+    sysPushHead: '\n# Push {label}\n', sysPushDone: 'Status: {label} was pushed. The device will reboot.\n',
+    modeDel: 'Delete app', newIdPh: 'New app id, e.g. weather', del: 'Delete',
+    llmPh: 'Describe the change, or the new app. Edit and new both compile, then push to the device.',
+    snapFail: 'Screenshot failed', rebootAsk: 'Reboot the device?', noSerial: 'No serial port found', fixHead: '\n# Fix build {app}\n',
+    treeHead: '\n# Project tree\n', noAdded: 'No added app to delete', noApp: 'No app',
+    delAsk: 'Delete app {label}? Source on this computer and the install directory on the device will both be removed, and the main application will restart. The picture will drop briefly.',
+    newAsk: 'Add app {label} on the device? The main application will restart when it finishes, and the picture will drop briefly.',
+    delHead: '\n# Delete app {label}\n', needId: 'A new app needs an id. Chinese or English both work.\n',
+    genHead: '\n# Generate and push\n', genStarted: 'Status: started {act} {target}\n', genAsk: 'Request:\n', actNew: 'creating', actEdit: 'editing',
+    appPartial: ' (unfinished)', appProgress: ' (in progress)', newSlot: 'New app',
+    progressDel: 'Delete',
+    stepsNew: 'Steps: confirm the Chinese name, English name, and directory id; if that id already exists, choose continue or delete and start over → 1 generate or keep editing → 2 check, and edit once if it fails → 3 compile, locate source errors, edit, and compile again → 4 push to the device and show it\n',
+    stepsContinue: 'Steps: continue the in-progress app without confirming the name or asking to delete and start over → 1 keep editing → 2 check, and edit once if it fails → 3 compile, locate source errors, edit, and compile again → 4 push to the device and show it\n',
+    stepsEdit: 'Steps: 1 edit → 2 check, and edit once if it fails → 3 compile, locate source errors, edit, and compile again → 4 push to the device and show it\n',
+    genQueued: 'Status: running. Progress is below. If a choice is needed, or the request is unclear, it will ask you first.\n',
+    genSubmitFail: 'Status: submit failed {status}\n', genFail: 'Status: failed {err}\n',
+    apiDown: 'Cannot reach the Studio service. Open Studio again, then retry.',
+    cancelJob: 'Stop', cancelNeed: 'The previous run is still going. Press stop first.\n',
+    askContinue: 'Continue',
+  },
+};
+let lang = localStorage.getItem('syncLang') === 'en' ? 'en' : 'zh';
+function t(key, vars) {
+  let s = (I18N[lang] && I18N[lang][key]) || I18N.zh[key] || key;
+  if (vars) for (const [k, v] of Object.entries(vars)) s = s.split('{' + k + '}').join(String(v));
+  return s;
+}
+function applyStatic() {
+  document.documentElement.lang = lang === 'en' ? 'en' : 'zh-CN';
+  document.title = t('brand');
+  document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
+  document.querySelectorAll('[data-i18n-ph]').forEach(el => { el.placeholder = t(el.dataset.i18nPh); });
+  document.querySelectorAll('[data-i18n-alt]').forEach(el => { el.alt = t(el.dataset.i18nAlt); });
+  document.querySelectorAll('[data-i18n-title]').forEach(el => { el.title = t(el.dataset.i18nTitle); });
+  const pick = document.getElementById('langPick');
+  if (pick) pick.value = lang;
+}
+applyStatic();
+fetch('/api/lang', {
+  method: 'POST', headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ lang }),
+}).catch(() => {});
+const $ = id => document.getElementById(id);
+let procAlias = {};
+fetch('/api/product').then(r => r.json()).then(j => { procAlias = j.procAlias || {}; }).catch(() => {});
+const fmtUptime = s => {
+  s = Math.floor(s);
+  const d = Math.floor(s / 86400), h = Math.floor(s % 86400 / 3600), m = Math.floor(s % 3600 / 60), sec = s % 60;
+  if (d) return `${d}${t('day')}${h}:${String(m).padStart(2, '0')}`;
+  return `${h}:${String(m).padStart(2, '0')}:${String(sec).padStart(2, '0')}`;
+};
+const fmtKb = kb => kb > 1024 * 1024 ? (kb / 1024 / 1024).toFixed(1) + 'G'
+  : kb > 1024 ? (kb / 1024).toFixed(0) + 'M' : kb + 'K';
+const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;');
+
+/* ---------- SSE ---------- */
+const logLines = [];
+const ev = new EventSource('/events');
+let lastStatus = null;
+let lastHello = null;
+let serialOn = false;
+function paintStatus() {
+  const d = lastStatus;
+  if (!d) {
+    $('devname').textContent = t('disconnected');
+    return;
+  }
+  const ip = String(d.device || '').replace(/:7777$/, '');
+  $('devname').textContent = d.connected ? t('connected', { ip }) : (ip ? t('connecting', { ip }) : t('disconnected'));
+  const input = $('devHost');
+  if (ip && document.activeElement !== input) input.value = ip;
+}
+function paintSnapHint() {
+  const wrap = $('videoWrap');
+  if (lastHello && lastHello.res) {
+    const w = Number(lastHello.res[0]) || 800;
+    const h = Number(lastHello.res[1]) || 480;
+    $('snapHint').textContent = t('snapHintFb', { w, h });
+    wrap.style.aspectRatio = `${w} / ${h}`;
+  } else {
+    $('snapHint').textContent = t('snapHint');
+    wrap.style.aspectRatio = '5 / 3';
+  }
+}
+function paintSyncBtn() {
+  $('btnSync').textContent = syncOn ? t('syncClose') : t('syncOpen');
+}
+function paintSerBtn() {
+  $('btnSer').textContent = serialOn ? t('serClose') : t('serOpen');
+}
+function providerLabel(p) {
+  if (!p) return '';
+  return lang === 'en' && p.nameEn ? p.nameEn : p.name;
+}
+function providerHint(p) {
+  if (!p) return 'API Key';
+  if (lang === 'en' && p.keyHintEn) return p.keyHintEn;
+  return p.keyHint || 'API Key';
+}
+function applyI18n() {
+  applyStatic();
+  paintStatus();
+  paintSnapHint();
+  paintSyncBtn();
+  paintSerBtn();
+  paintLlmLabels();
+  syncLlmTarget();
+  paintRun(!!runCtrl);
+}
+$('langPick').onchange = () => {
+  lang = $('langPick').value === 'en' ? 'en' : 'zh';
+  localStorage.setItem('syncLang', lang);
+  applyI18n();
+  fetch('/api/lang', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ lang }),
+  }).catch(() => {});
+};
+ev.addEventListener('status', e => {
+  lastStatus = JSON.parse(e.data);
+  $('dot').classList.toggle('on', lastStatus.connected);
+  paintStatus();
+});
+async function connectDev() {
+  const host = $('devHost').value.trim();
+  if (!host) return;
+  localStorage.setItem('novaDevice', host);
+  $('btnDev').disabled = true;
+  try {
+    const r = await fetch('/api/device', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ device: host }),
+    });
+    const j = await r.json().catch(() => ({}));
+    if (!r.ok) $('devname').textContent = j.error || t('connectFail');
+  } catch (e) {
+    $('devname').textContent = t('connectFail');
+  }
+  $('btnDev').disabled = false;
+}
+$('btnDev').onclick = connectDev;
+$('devHost').addEventListener('keydown', e => { if (e.key === 'Enter') connectDev(); });
+if (!$('devHost').value) $('devHost').value = localStorage.getItem('novaDevice') || '';
+ev.addEventListener('hello', e => {
+  lastHello = JSON.parse(e.data);
+  paintSnapHint();
+});
+ev.addEventListener('metrics', e => renderMetrics(JSON.parse(e.data)));
+ev.addEventListener('log', e => appendLog(JSON.parse(e.data)));
+ev.addEventListener('job', e => {
+  const busy = !!JSON.parse(e.data).busy;
+  paintJob(busy);
+  if (!busy) loadApps();
+});
+ev.addEventListener('build', e => appendOut('wslout', JSON.parse(e.data).text + '\n'));
+ev.addEventListener('pane', e => {
+  const d = JSON.parse(e.data);
+  const id = d.id === 'serial' ? 'serialout' : (d.id === 'wsl' || d.id === 'llm') ? 'wslout' : 'buildout';
+  appendOut(id, d.text);
+});
+ev.addEventListener('ask', onAsk);
+ev.addEventListener('device_err', e => appendLog({ ts: Date.now() / 1000, level: 4, tag: 'agent', text: JSON.parse(e.data).msg }));
+
+const THREAD_STORE = 'studioAppThreads';
+let appThreads = {};
+try { appThreads = JSON.parse(localStorage.getItem(THREAD_STORE) || '{}') || {}; }
+catch { appThreads = {}; }
+let jobThread = '';
+let shownThread = null;
+function threadKey() {
+  const mode = $('llmMode').value;
+  if (mode === 'new') {
+    const picked = $('llmApp').selectedOptions[0];
+    if (picked && picked.dataset.progress === '1' && picked.dataset.id) return 'app:' + picked.dataset.id;
+    const id = $('llmNew').value.trim();
+    return id ? 'app:' + id : '';
+  }
+  if (mode === 'delete') return '';
+  const opt = $('llmApp').selectedOptions[0];
+  const id = (opt && opt.dataset.id) || '';
+  return id ? 'app:' + id : '';
+}
+function saveAppThreads() {
+  try { localStorage.setItem(THREAD_STORE, JSON.stringify(appThreads)); }
+  catch { /* the browser kept the copy in memory */ }
+}
+function showAppThread() {
+  const key = threadKey();
+  if (key === shownThread) return;
+  shownThread = key;
+  if ($('llmMode').value === 'delete') return;
+  $('wslout').textContent = (key && appThreads[key]) || '';
+  $('wslout').scrollTop = 1e9;
+}
+function appendOut(id, text) {
+  if (id === 'wslout' && jobThread) {
+    appThreads[jobThread] = ((appThreads[jobThread] || '') + text).slice(-100000);
+    saveAppThreads();
+    if (threadKey() !== jobThread) return;
+  }
+  const el = $(id);
+  el.textContent += text;
+  if (el.textContent.length > 200000) el.textContent = el.textContent.slice(-150000);
+  el.scrollTop = 1e9;
+}
+
+/* ---------- metrics ---------- */
+const METRIC_CPU_N = 2;
+function metricsCpus(m) {
+  if (Array.isArray(m.cpus) && m.cpus.length)
+    return m.cpus.map(v => Number(v));
+  const one = Number(m.cpu);
+  if (!Number.isNaN(one)) return [one];
+  return null;
+}
+function paintCpus(pcts, load) {
+  const list = Array.isArray(pcts) ? pcts : [];
+  const parts = [];
+  for (let i = 0; i < METRIC_CPU_N; i++) {
+    const n = list[i];
+    const v = n == null || Number.isNaN(Number(n)) ? null : Math.max(0, Math.min(100, Number(n)));
+    parts.push(v == null ? '--' : String(Math.round(v)).padStart(2, ' ') + '%');
+  }
+  $('mCpu0').textContent = parts[0] || '--';
+  $('mCpu1').textContent = parts[1] || '--';
+  $('mLoad').textContent = load || '';
+}
+let corePrev = null;
+let coreBusy = false;
+function parseCoreStat(text) {
+  const cores = [];
+  for (const line of String(text || '').split('\n')) {
+    const m = /^cpu(\d+)\s+(.+)$/.exec(line);
+    if (!m) continue;
+    const parts = m[2].trim().split(/\s+/).map(Number);
+    const total = parts.reduce((a, b) => a + (b || 0), 0);
+    const idle = (parts[3] || 0) + (parts[4] || 0);
+    cores.push({ total, idle });
+  }
+  return cores;
+}
+async function sampleCores(load, fallbackPct) {
+  if (coreBusy) {
+    if (fallbackPct != null) paintCpus(fallbackPct, load);
+    return;
+  }
+  coreBusy = true;
+  try {
+    const r = await fetch('/api/exec', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ cmd: 'head -n 3 /proc/stat' }),
+    });
+    const j = await r.json();
+    const now = parseCoreStat(j.out || '');
+    if (corePrev && now.length && corePrev.length === now.length) {
+      paintCpus(now.map((c, i) => {
+        const p = corePrev[i];
+        const dt = c.total - p.total;
+        const di = c.idle - p.idle;
+        if (dt <= 0) return 0;
+        return Math.max(0, Math.min(100, 100 * (dt - di) / dt));
+      }), load);
+    } else if (!corePrev) {
+      paintCpus(fallbackPct || now.map(() => null), load);
+    } else if (fallbackPct) {
+      paintCpus(fallbackPct, load);
+    }
+    corePrev = now;
+  } catch {
+    if (fallbackPct) paintCpus(fallbackPct, load);
+  }
+  coreBusy = false;
+}
+function renderMetrics(m) {
+  $('mUp').textContent = fmtUptime(m.uptime || 0);
+  const load = m.load ? m.load.map(v => v.toFixed(2)).join('/') : '';
+  const cpus = metricsCpus(m);
+  const hasCpu = cpus && cpus.length && cpus.some(v => !Number.isNaN(v) && v >= 0);
+  if (hasCpu) paintCpus(cpus, load);
+  else sampleCores(load, cpus);
+  if (m.mem_total_kb) {
+    const used = m.mem_total_kb - m.mem_free_kb, pct = used / m.mem_total_kb * 100;
+    $('mMemPct').textContent = pct.toFixed(0) + '%';
+    $('mMemTxt').textContent = `${fmtKb(used)}/${fmtKb(m.mem_total_kb)}`;
+  }
+  const hasTemp = m.temp_c != null && !Number.isNaN(Number(m.temp_c));
+  $('chipTemp').hidden = !hasTemp;
+  if (hasTemp) $('mTemp').textContent = m.temp_c.toFixed(0) + '°C';
+  $('mNet').textContent = m.net ? `↓${fmtKb(m.net.rx_kb)}↑${fmtKb(m.net.tx_kb)}` : '--';
+  const TOP_N = 12;
+  const procName = p => {
+    let name = String(p.name || '');
+    for (const [from, to] of Object.entries(procAlias)) {
+      const re = new RegExp('^' + from.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '(?=/|$)');
+      if (re.test(name)) {
+        name = name.replace(re, to);
+        break;
+      }
+    }
+    const slash = name.indexOf('/');
+    return slash >= 0 ? name.slice(slash + 1) : name;
+  };
+  const rows = (m.procs || []).slice(0, TOP_N);
+  while (rows.length < TOP_N) rows.push(null);
+  const cpuTime = s => {
+    s = Math.floor(s || 0);
+    return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0');
+  };
+  $('mProcs').innerHTML = rows.map(p => p
+    ? `<tr><td title="${esc(p.name || '')}">${esc(procName(p))}</td><td>${p.tid ?? ''}</td><td>${p.pid ?? ''}</td><td>${esc(p.state || '')}</td><td>${Number(p.pcpu || 0).toFixed(1)}</td><td>${cpuTime(p.cpu_s)}</td></tr>`
+    : '<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>').join('');
+}
+
+/* ---------- log ---------- */
+let logFollow = true;
+function scrollLogToEnd() {
+  const el = $('log');
+  if (!el) return;
+  el.scrollTop = el.scrollHeight;
+}
+$('log').addEventListener('scroll', () => {
+  const el = $('log');
+  logFollow = el.scrollTop + el.clientHeight >= el.scrollHeight - 40;
+}, { passive: true });
+function appendLog(l) {
+  if (l && l.tag === 'serial' && /串口已断开|串口打开失败|Serial closed|Failed to open the serial port/.test(l.text || '')) {
+    serialOn = false;
+    paintSerBtn();
+  }
+  const d = new Date((l.ts || Date.now() / 1000) * 1000);
+  const t = d.toTimeString().slice(0, 8);
+  logLines.push(`<span class="lv7">[${t}]</span> <span class="tag-${l.tag}">${l.tag}</span> <span class="lv${l.level}">${esc(l.text)}</span>`);
+  if (logLines.length > 4000) logLines.shift();
+  renderLog();
+}
+function renderLog() {
+  const f = $('logFilter').value;
+  const html = f ? logLines.filter(x => x.includes(f)) : logLines;
+  $('log').innerHTML = html.map(line => `<div class="logLine">${line}</div>`).join('');
+  if (logFollow) requestAnimationFrame(() => scrollLogToEnd());
+}
+$('logFilter').oninput = renderLog;
+$('btnClearLog').onclick = () => { logLines.length = 0; renderLog(); };
+async function pullDeviceLog() {
+  try {
+    const r = await fetch('/api/exec', { method: 'POST', body: JSON.stringify({ cmd: 'tail -n 40 /var/log/messages' }) });
+    if (!r.ok) return;
+    const j = await r.json();
+    String(j.out || '').split('\n').filter(Boolean).forEach(line =>
+      appendLog({ ts: Date.now() / 1000, level: 6, tag: 'syslog', text: line }));
+  } catch (e) { /* device shell not up yet */ }
+}
+pullDeviceLog();
+$('btnSaveLog').onclick = () => {
+  const text = logLines.map(x => x.replace(/<[^>]+>/g, '')).join('\n');
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([text], { type: 'text/plain' }));
+  a.download = `sync_log_${new Date().toISOString().replace(/[:T]/g, '-').slice(0, 19)}.txt`;
+  a.click();
+};
+
+const GO_UP = '<svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M8 2.2 3.1 7.3h3.2v6.5h3.4V7.3h3.2L8 2.2z"/></svg>';
+const GO_STOP = '<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><rect x="3.2" y="3.2" width="9.6" height="9.6" rx="1" fill="currentColor"/></svg>';
+let jobBusy = false;
+let runCtrl = null;
+function paintGo(btn, busy, text) {
+  const stop = !!busy;
+  btn.classList.toggle('busy', stop);
+  btn.classList.toggle('iconGo', !text);
+  if (text) {
+    btn.textContent = text;
+    btn.title = text;
+    btn.setAttribute('aria-label', text);
+    return;
+  }
+  btn.innerHTML = stop ? GO_STOP : GO_UP;
+  const tip = stop ? t('stopJob') : t('run');
+  btn.title = tip;
+  btn.setAttribute('aria-label', tip);
+}
+function paintRun(busy) { paintGo($('btnRun'), busy); }
+function paintJob(busy) {
+  jobBusy = !!busy;
+  if (!jobBusy) jobThread = '';
+  const del = $('llmMode') && $('llmMode').value === 'delete' && !jobBusy;
+  paintGo($('btnLlm'), jobBusy, del ? t('del') : '');
+}
+paintRun(false);
+paintJob(false);
+document.querySelectorAll('#tabs button[data-pane]').forEach(btn => {
+  btn.onclick = () => {
+    document.querySelectorAll('#tabs button[data-pane]').forEach(b => b.classList.remove('on'));
+    document.querySelectorAll('.pane').forEach(p => p.classList.remove('on'));
+    btn.classList.add('on');
+    $('pane-' + btn.dataset.pane).classList.add('on');
+    if (btn.dataset.pane === 'llm') loadApps();
+    if (btn.dataset.pane === 'log') {
+      logFollow = true;
+      requestAnimationFrame(() => scrollLogToEnd());
+    }
+  };
+});
+async function stopLlmJob() {
+  try { await toolPost('/api/llm/cancel', {}); }
+  catch (e) { appendOut('wslout', `\n[error] ${e}\n`); }
+}
+
+let askId = '';
+function hideAsk() {
+  askId = '';
+  const box = $('askBox');
+  if (box) box.hidden = true;
+}
+function showAsk(d) {
+  askId = d.id;
+  $('askTitle').textContent = d.title || '';
+  $('askHint').textContent = d.hint || '';
+  $('askErr').textContent = '';
+  const body = $('askBody');
+  body.innerHTML = '';
+  for (const f of d.fields || []) {
+    const label = document.createElement('label');
+    label.className = 'askField';
+    label.textContent = f.label || f.key || '';
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.dataset.key = f.key || '';
+    input.value = f.value || '';
+    label.appendChild(input);
+    body.appendChild(label);
+  }
+  (d.questions || []).forEach((q, i) => {
+    const set = document.createElement('fieldset');
+    set.dataset.q = String(i);
+    const legend = document.createElement('div');
+    legend.textContent = q.prompt || '';
+    set.appendChild(legend);
+    (q.options || []).forEach((opt, n) => {
+      const label = document.createElement('label');
+      const radio = document.createElement('input');
+      radio.type = 'radio';
+      radio.name = 'askq' + i;
+      radio.value = opt;
+      if (n === 0) radio.checked = true;
+      label.appendChild(radio);
+      label.appendChild(document.createTextNode(opt));
+      set.appendChild(label);
+    });
+    body.appendChild(set);
+  });
+  if (d.note) {
+    const label = document.createElement('label');
+    label.className = 'askField';
+    label.textContent = d.note;
+    const area = document.createElement('textarea');
+    area.id = 'askNote';
+    area.rows = 2;
+    label.appendChild(area);
+    body.appendChild(label);
+  }
+  $('askBox').hidden = false;
+  showPane('llm');
+}
+function onAsk(e) {
+  const d = JSON.parse(e.data);
+  if (d.done) {
+    if (!d.id || d.id === askId) hideAsk();
+    return;
+  }
+  showAsk(d);
+}
+$('askGo').onclick = async () => {
+  if (!askId) return;
+  const fields = {};
+  $('askBody').querySelectorAll('input[data-key]').forEach(el => { fields[el.dataset.key] = el.value.trim(); });
+  const picks = [];
+  $('askBody').querySelectorAll('fieldset[data-q]').forEach(group => {
+    const sel = group.querySelector('input:checked');
+    picks.push(sel ? sel.value : '');
+  });
+  const noteEl = $('askNote');
+  const note = noteEl ? noteEl.value.trim() : '';
+  $('askGo').disabled = true;
+  try {
+    const r = await toolPost('/api/llm/answer', { id: askId, fields, picks, note });
+    const j = await readJson(r);
+    if (!r.ok || j.ok === false) {
+      $('askErr').textContent = j.error || t('genSubmitFail', { status: r.status });
+      return;
+    }
+    hideAsk();
+  } catch (e) {
+    $('askErr').textContent = String(e.message || e);
+  } finally {
+    $('askGo').disabled = false;
+  }
+};
+
+function sideOrigin() {
+  const host = location.hostname || '127.0.0.1';
+  return `http://${host}:8081`;
+}
+let syncApiBase = undefined;
+let syncApiBasePromise = null;
+async function resolveSyncApiBase(force) {
+  if (!force && syncApiBase !== undefined) return syncApiBase;
+  const host = location.hostname || '127.0.0.1';
+  const bases = [];
+  if (location.protocol.startsWith('http')) bases.push('');
+  for (const p of [location.port, '8081', '8080', '8082']) {
+    if (!p) continue;
+    const u = `http://${host}:${p}`;
+    if (!bases.includes(u)) bases.push(u);
+  }
+  if (location.protocol === 'file:') bases.push(sideOrigin());
+  for (const base of bases) {
+    try {
+      const r = await fetch(base + '/api/version');
+      const text = await r.text();
+      if (!text.trim()) continue;
+      const j = JSON.parse(text);
+      if (j.ok && j.fileApi >= 1) {
+        syncApiBase = base;
+        return base;
+      }
+    } catch { /* try next */ }
+  }
+  syncApiBase = bases[0] ?? '';
+  return syncApiBase;
+}
+function ensureSyncApiBase(force) {
+  if (!force && syncApiBase !== undefined) return Promise.resolve(syncApiBase);
+  if (!force && syncApiBasePromise) return syncApiBasePromise;
+  syncApiBasePromise = resolveSyncApiBase(force).finally(() => { syncApiBasePromise = null; });
+  return syncApiBasePromise;
+}
+function needSideStream() {
+  if (location.protocol === 'file:') return true;
+  return syncApiBase !== undefined && syncApiBase !== '';
+}
+async function readJson(r) {
+  const text = await r.text();
+  if (!text.trim()) {
+    const extra = r.status ? ` (HTTP ${r.status})` : '';
+    const msg = r.status === 404 ? t('api404') : t('apiEmpty');
+    return { ok: false, error: msg + extra };
+  }
+  try {
+    const j = JSON.parse(text);
+    if (r.status === 404 && j.error === 'not found') return { ok: false, error: t('api404') + ' (HTTP 404)' };
+    return j;
+  }
+  catch { return { ok: false, error: text.slice(0, 240) }; }
+}
+async function fetchApi(path, init, retry = true) {
+  const base = await ensureSyncApiBase();
+  let r;
+  let text = '';
+  try {
+    r = await fetch(base + path, init);
+    text = await r.text();
+  } catch (e) {
+    if (e && e.name === 'AbortError') throw e;
+    text = JSON.stringify({ ok: false, error: t('apiDown') });
+    return new Response(text, { status: 503, statusText: 'Studio unreachable' });
+  }
+  const status = r.status >= 200 && r.status <= 599 ? r.status : 502;
+  if (retry && status === 404 && !text.trim()) {
+    syncApiBase = undefined;
+    const base2 = await ensureSyncApiBase(true);
+    if (base2 !== base) return fetchApi(path, init, false);
+  }
+  return new Response(text, { status, statusText: r.statusText || '' });
+}
+async function apiPost(path, body = {}, signal) {
+  if (needSideStream() && typeof sideStream === 'function') sideStream();
+  return fetchApi(path, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body),
+    signal,
+  });
+}
+async function apiGetSync(path) {
+  if (needSideStream() && typeof sideStream === 'function') sideStream();
+  return fetchApi(path, { method: 'GET' });
+}
+
+/* ---------- device shell / build ---------- */
+function buildLine() { return $('buildIn').value.trim(); }
+function looksLikeDevicePath(s) {
+  const line = String(s || '').trim();
+  if (!line.startsWith('/') || /\s/.test(line)) return false;
+  if (/[|;&`$()<>\n\r]/.test(line)) return false;
+  const norm = line.replace(/\/+$/, '') || '/';
+  return pathUnderClient(norm);
+}
+async function runCmd(signal) {
+  const cmd = buildLine();
+  if (!cmd) return;
+  appendOut('buildout', `$ ${cmd}\n`);
+  $('buildIn').value = '';
+  const r = await apiPost('/api/exec', { cmd }, signal);
+  const j = await readJson(r);
+  appendOut('buildout', (j.out || j.error || '') + (j.exit ? `\n[exit ${j.exit}]` : '') + '\n');
+}
+async function runBuildLine() {
+  if (runCtrl) {
+    runCtrl.abort();
+    return;
+  }
+  const line = buildLine();
+  if (!line) return;
+  runCtrl = new AbortController();
+  const signal = runCtrl.signal;
+  paintRun(true);
+  try {
+    if (looksLikeDevicePath(line)) {
+      appendOut('buildout', `# open ${line}\n`);
+      await openDevicePath(signal);
+    } else {
+      await runCmd(signal);
+    }
+  } catch (e) {
+    if (!(e && e.name === 'AbortError')) appendOut('buildout', `[error] ${e}\n`);
+    else appendOut('buildout', t('stopped'));
+  } finally {
+    runCtrl = null;
+    paintRun(false);
+  }
+}
+$('btnRun').onclick = runBuildLine;
+$('buildIn').addEventListener('keydown', e => {
+  if (e.key !== 'Enter') return;
+  e.preventDefault();
+  if (runCtrl) return;
+  runBuildLine();
+});
+
+let fileOpenPath = '';
+let fileDirPath = '';
+function parentDir(p) {
+  const x = String(p || '').replace(/\/+$/, '');
+  const i = x.lastIndexOf('/');
+  if (i <= 0) return '';
+  return x.slice(0, i) || '/';
+}
+function escAttr(s) { return String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;'); }
+let fileSavedText = '';
+let fileDirOn = false;
+let fileEdOn = false;
+function hideFileDir() {
+  const el = $('fileDir');
+  el.classList.remove('on');
+  el.hidden = true;
+  el.innerHTML = '';
+  fileDirPath = '';
+  fileDirOn = false;
+  renderFilePanel();
+}
+function fileDirtyNow() { return fileEdOn && $('fileBody').value !== fileSavedText; }
+function paintFileDirty() {
+  $('fileDirty').classList.toggle('on', fileDirtyNow());
+}
+function renderFilePanel() {
+  const editing = fileDirOn || fileEdOn;
+  const bar = $('fileBar');
+  $('pane-build').classList.toggle('editing', editing);
+  bar.classList.toggle('on', editing);
+  bar.hidden = !editing;
+  if (!editing) {
+    $('filePath').textContent = '';
+    bar.dataset.mode = '';
+    return;
+  }
+  if (fileEdOn) {
+    bar.dataset.mode = 'edit';
+    $('filePath').textContent = fileOpenPath;
+  } else {
+    bar.dataset.mode = 'dir';
+    $('filePath').textContent = fileDirPath;
+  }
+}
+function hideFileEditor() {
+  $('fileBody').classList.remove('on');
+  $('fileBody').hidden = true;
+  $('fileBody').value = '';
+  $('btnFileSave').disabled = true;
+  fileOpenPath = '';
+  fileSavedText = '';
+  fileEdOn = false;
+  renderFilePanel();
+}
+function closeFilePanel() {
+  if (fileDirtyNow() && !confirm(t('fileLoseAsk', { path: fileOpenPath }))) return false;
+  hideFileDir();
+  hideFileEditor();
+  setFileHint('', false);
+  return true;
+}
+function renderFileDir(path, entries) {
+  fileDirPath = path;
+  const el = $('fileDir');
+  const parent = parentDir(path);
+  const up = parent && pathUnderClient(parent)
+    ? `<div class="fileDirRow up" data-path="${escAttr(parent)}">${t('fileDirUp')}</div>`
+    : '';
+  const rows = (entries || []).map(e => {
+    const cls = e.dir ? 'dir' : 'file';
+    const tag = e.dir ? '[DIR] ' : '';
+    return `<div class="fileDirRow ${cls}" data-path="${escAttr(e.path)}" data-dir="${e.dir ? '1' : '0'}">${tag}${esc(e.name)}</div>`;
+  }).join('');
+  el.innerHTML = `<div class="fileDirHead">${esc(path)}</div>${up}${rows || `<div class="fileDirRow">${t('fileDirEmpty')}</div>`}`;
+  el.classList.add('on');
+  el.hidden = false;
+  fileDirOn = true;
+  renderFilePanel();
+  $('buildIn').value = path;
+  localStorage.setItem('syncBuildIn', path);
+}
+function openFileEditor(path, content) {
+  hideFileDir();
+  fileOpenPath = path;
+  fileSavedText = content;
+  $('fileBody').value = content;
+  $('fileBody').classList.add('on');
+  $('fileBody').hidden = false;
+  $('btnFileSave').disabled = false;
+  fileEdOn = true;
+  renderFilePanel();
+  paintFileDirty();
+}
+function pathUnderClient(p) {
+  const roots = ['/tmp/', '/etc/config/', '/mnt/', '/usr/apps/', '/usr/data/', '/usr/lib/'];
+  return roots.some(pre => {
+    const root = pre.replace(/\/$/, '');
+    return p === root || p.startsWith(pre);
+  });
+}
+$('fileDir').onclick = async ev => {
+  const row = ev.target.closest('.fileDirRow[data-path]');
+  if (!row) return;
+  const path = row.getAttribute('data-path');
+  const isDir = row.getAttribute('data-dir') === '1' || row.classList.contains('up');
+  $('buildIn').value = path;
+  localStorage.setItem('syncBuildIn', path);
+  if (isDir) await listDeviceDir(path);
+  else await readDeviceFile(path);
+};
+function setFileHint(text, err) {
+  const el = $('fileHint');
+  if (!text) { el.textContent = ''; el.classList.remove('on', 'err'); return; }
+  el.textContent = text;
+  el.classList.add('on');
+  el.classList.toggle('err', !!err);
+}
+function syncMntRwBtn() {
+  const p = buildLine();
+  $('btnMntRw').hidden = !p.startsWith('/mnt/');
+}
+async function refreshMntHint() {
+  const p = buildLine();
+  if (!p.startsWith('/mnt/')) {
+    setFileHint(t('fileAllowHint'), false);
+    return;
+  }
+  try {
+    const r = await apiGetSync('/api/file/mnt-status');
+    const j = await readJson(r);
+    if (j.readOnly) setFileHint(t('mntRoHint') + (j.line ? ` (${j.line})` : ''), false);
+    else setFileHint(j.line ? `/mnt: ${j.line}` : t('fileAllowHint'), false);
+  } catch {
+    setFileHint(t('fileAllowHint'), false);
+  }
+}
+async function listDeviceDir(path) {
+  if (!mayLoseEdits()) return;
+  setFileHint('', false);
+  $('btnFileRead').disabled = true;
+  try {
+    const r = await apiPost('/api/file/list', { path });
+    const j = await readJson(r);
+    if (!r.ok || !j.ok) {
+      setFileHint(j.error || r.status, true);
+      appendOut('buildout', `[file] ${j.error || r.status}\n`);
+      return;
+    }
+    hideFileEditor();
+    renderFileDir(j.path, j.entries);
+    setFileHint(t('fileListOk', { path: j.path, n: (j.entries || []).length }), false);
+    appendOut('buildout', `# ls ${j.path} (${(j.entries || []).length})\n`);
+    refreshMntHint();
+  } catch (e) {
+    setFileHint(String(e), true);
+  } finally {
+    $('btnFileRead').disabled = false;
+  }
+}
+async function readDeviceFile(path) {
+  if (!mayLoseEdits()) return;
+  $('btnFileRead').disabled = true;
+  setFileHint('', false);
+  try {
+    const r = await apiPost('/api/file/read', { path });
+    const j = await readJson(r);
+    if (!r.ok || !j.ok) {
+      setFileHint(j.error || r.status, true);
+      appendOut('buildout', `[file] ${j.error || r.status}\n`);
+      return;
+    }
+    openFileEditor(j.path, j.content);
+    $('buildIn').value = j.path;
+    localStorage.setItem('syncBuildIn', j.path);
+    setFileHint(t('fileReadOk', { path: j.path, size: j.size }), false);
+    appendOut('buildout', `# read ${j.path} (${j.size})\n`);
+    refreshMntHint();
+  } catch (e) {
+    setFileHint(String(e), true);
+  } finally {
+    $('btnFileRead').disabled = false;
+  }
+}
+async function openDevicePath(signal) {
+  const path = buildLine();
+  if (!path) return;
+  if (!mayLoseEdits()) return;
+  localStorage.setItem('syncBuildIn', path);
+  $('btnFileRead').disabled = true;
+  setFileHint('', false);
+  try {
+    const r = await apiPost('/api/file/open', { path }, signal);
+    const j = await readJson(r);
+    if (!r.ok || !j.ok) {
+      setFileHint(j.error || r.status, true);
+      appendOut('buildout', `[file] ${j.error || r.status}\n`);
+      return;
+    }
+    if (j.kind === 'dir') {
+      hideFileEditor();
+      renderFileDir(j.path, j.entries);
+      setFileHint(t('fileListOk', { path: j.path, n: (j.entries || []).length }), false);
+      appendOut('buildout', `# ls ${j.path} (${(j.entries || []).length})\n`);
+    } else {
+      openFileEditor(j.path, j.content);
+      $('buildIn').value = j.path;
+      setFileHint(t('fileReadOk', { path: j.path, size: j.size }), false);
+      appendOut('buildout', `# read ${j.path} (${j.size})\n`);
+    }
+    refreshMntHint();
+  } catch (e) {
+    if (e && e.name === 'AbortError') throw e;
+    setFileHint(String(e), true);
+  } finally {
+    $('btnFileRead').disabled = false;
+  }
+}
+const savedBuildIn = localStorage.getItem('syncBuildIn') || localStorage.getItem('syncFilePath');
+if (savedBuildIn) $('buildIn').value = savedBuildIn;
+ensureSyncApiBase().then(() => refreshMntHint()).catch(() => refreshMntHint());
+syncMntRwBtn();
+$('buildIn').addEventListener('input', () => {
+  localStorage.setItem('syncBuildIn', $('buildIn').value);
+  syncMntRwBtn();
+  refreshMntHint();
+});
+$('btnFileRead').onclick = () => openDevicePath();
+function mayLoseEdits() {
+  if (!fileDirtyNow()) return true;
+  return confirm(t('fileLoseAsk', { path: fileOpenPath }));
+}
+async function saveDeviceFile(force) {
+  const path = fileOpenPath || buildLine();
+  if (!path) return;
+  if (!fileEdOn) return;
+  if (!confirm(t('fileSaveAsk', { path }))) return;
+  $('btnFileSave').disabled = true;
+  try {
+    const r = await apiPost('/api/file/write', {
+      path,
+      content: $('fileBody').value,
+      skipMntCheck: !!force,
+    });
+    const j = await readJson(r);
+    if (r.status === 409 && j.needRemount) {
+      setFileHint(j.error, true);
+      syncMntRwBtn();
+      appendOut('buildout', `[file] ${j.error}\n`);
+      $('btnFileSave').disabled = false;
+      return;
+    }
+    if (!r.ok || !j.ok) {
+      setFileHint(j.error || r.status, true);
+      appendOut('buildout', `[file] ${j.error || r.status}\n`);
+      $('btnFileSave').disabled = false;
+      return;
+    }
+    fileOpenPath = j.path;
+    fileSavedText = $('fileBody').value;
+    paintFileDirty();
+    setFileHint(t('fileSaveOk', { path: j.path, size: j.size }), false);
+    appendOut('buildout', `# write ${j.path} (${j.size})\n`);
+    refreshMntHint();
+  } catch (e) {
+    setFileHint(String(e), true);
+  }
+  $('btnFileSave').disabled = false;
+}
+$('btnFileSave').onclick = () => saveDeviceFile(false);
+$('btnFileClose').onclick = () => closeFilePanel();
+$('btnFileUp').onclick = async () => {
+  if (!fileDirOn) return;
+  const up = parentDir(fileDirPath);
+  if (!up || !pathUnderClient(up)) return;
+  $('buildIn').value = up;
+  localStorage.setItem('syncBuildIn', up);
+  await listDeviceDir(up);
+};
+$('btnFileRevert').onclick = async () => {
+  if (!fileEdOn) return;
+  if (!confirm(t('fileRevertAsk', { path: fileOpenPath }))) return;
+  $('fileBody').value = fileSavedText;
+  paintFileDirty();
+};
+$('fileBody').addEventListener('input', paintFileDirty);
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && (fileEdOn || fileDirOn)) {
+    e.preventDefault();
+    closeFilePanel();
+  } else if ((e.ctrlKey || e.metaKey) && (e.key === 's' || e.key === 'S')) {
+    if (!fileEdOn) return;
+    e.preventDefault();
+    saveDeviceFile(false);
+  }
+});
+$('btnMntRw').onclick = async () => {
+  $('btnMntRw').disabled = true;
+  try {
+    const r = await apiPost('/api/file/remount-mnt', {});
+    const j = await readJson(r);
+    const msg = j.ok && !j.readOnly
+      ? t('mntRwOk', { out: j.out || 'OK' })
+      : t('mntRwFail', { out: j.out || j.error || r.status });
+    setFileHint(msg, !(j.ok && !j.readOnly));
+    appendOut('buildout', `mount -o remount,rw /mnt\n${j.out || ''}\n`);
+    refreshMntHint();
+  } catch (e) { setFileHint(String(e), true); }
+  $('btnMntRw').disabled = false;
+};
+
+$('btnSnap').onclick = async () => {
+  const r = await fetch('/api/snap', { method: 'POST' });
+  if (!r.ok) return alert(t('snapFail'));
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(await r.blob());
+  a.download = `sync_snap_${Date.now()}.jpg`;
+  a.click();
+};
+$('btnReboot').onclick = async () => {
+  if (!confirm(t('rebootAsk'))) return;
+  await fetch('/api/reboot', { method: 'POST' });
+  appendLog({ ts: Date.now() / 1000, level: 6, tag: 'pc', text: 'reboot sent' });
+};
+let syncOn = true;
+function setSync(on) {
+  syncOn = on;
+  $('videoWrap').classList.toggle('off', !on);
+  paintSyncBtn();
+  const img = $('screen');
+  if (!on) {
+    img.src = '';
+    img.removeAttribute('src');
+  }
+  fetch('/api/sync', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ on }),
+  }).then(() => {
+    if (on && syncOn) img.src = '/video?' + Date.now();
+  }).catch(() => {
+    if (on && syncOn) img.src = '/video?' + Date.now();
+  });
+}
+$('btnSync').onclick = () => setSync(!syncOn);
+$('btnSyncOpen').onclick = () => setSync(true);
+function showPane(name) {
+  if (name === 'wsl') name = 'llm';
+  const btn = document.querySelector('#tabs button[data-pane="' + name + '"]');
+  if (btn) btn.click();
+}
+function toolBase() {
+  const bases = syncApiBases();
+  return bases[0];
+}
+async function toolPost(path, body) {
+  if (needSideStream() && typeof sideStream === 'function') sideStream();
+  return fetchApi(path, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body ?? {}),
+  });
+}
+/* ---------- 编译命令 ---------- */
+let sideEvents = null;
+function sideStream() {
+  if (sideEvents || (location.port === '8081' && location.protocol.startsWith('http'))) return;
+  sideEvents = new EventSource('' + sideOrigin() + '/events');
+  sideEvents.addEventListener('build', e => appendOut('wslout', JSON.parse(e.data).text + '\n'));
+  sideEvents.addEventListener('pane', e => {
+    const d = JSON.parse(e.data);
+    const id = (d.id === 'wsl' || d.id === 'llm') ? 'wslout' : '';
+    if (id) appendOut(id, d.text);
+  });
+  sideEvents.addEventListener('log', e => {
+    const l = JSON.parse(e.data);
+    if (l && l.tag === 'serial') appendLog(l);
+  });
+  sideEvents.addEventListener('job', e => {
+    const busy = !!JSON.parse(e.data).busy;
+    paintJob(busy);
+    if (!busy) loadApps();
+  });
+  sideEvents.addEventListener('ask', onAsk);
+}
+async function apiGet(path) {
+  if (needSideStream() && typeof sideStream === 'function') sideStream();
+  return fetchApi(path, { method: 'GET' });
+}
+async function refreshSerialPorts() {
+  const sel = $('serPort');
+  const prev = sel.value || localStorage.getItem('novaSerialPort') || '';
+  let ports = [];
+  try {
+    const r = await apiGet('/api/serial/ports');
+    ports = (await r.json()).ports || [];
+  } catch (e) { ports = []; }
+  sel.innerHTML = ports.map(p => `<option value="${p}">${p}</option>`).join('');
+  if (ports.includes(prev)) sel.value = prev;
+  return ports;
+}
+async function openDeviceSerial(port) {
+  if (!port) return;
+  sideStream();
+  const base = location.port === '8081' ? '' : sideOrigin();
+  const r = await fetch(base + '/api/serial/open', {
+    method: 'POST', body: JSON.stringify({ port, baud: 115200 }),
+  });
+  if (!r.ok) throw new Error('open ' + port);
+  localStorage.setItem('novaSerialPort', port);
+  serialOn = true;
+  paintSerBtn();
+}
+$('btnSer').onclick = async () => {
+  if (serialOn) {
+    const base = location.port === '8081' ? '' : sideOrigin();
+    await fetch(base + '/api/serial/close', { method: 'POST' }).catch(() => {});
+    serialOn = false;
+    paintSerBtn();
+    return;
+  }
+  const ports = await refreshSerialPorts();
+  const port = $('serPort').value || ports[0];
+  if (!port) {
+    appendLog({ ts: Date.now() / 1000, level: 4, tag: 'serial', text: t('noSerial') });
+    return;
+  }
+  try { await openDeviceSerial(port); }
+  catch (e) { appendLog({ ts: Date.now() / 1000, level: 4, tag: 'serial', text: String(e) }); }
+};
+refreshSerialPorts().then(ports => {
+  const saved = localStorage.getItem('novaSerialPort');
+  const port = (saved && ports.includes(saved)) ? saved : (ports.length === 1 ? ports[0] : '');
+  if (port) openDeviceSerial(port).catch(() => {});
+});
+async function postOrSide(path, body) {
+  return apiPost(path, body);
+}
+async function pushSystem(btn, moduleName, label) {
+  if (!confirm(t('sysPushAsk', { label }))) return;
+  appendOut('wslout', t('sysPushHead', { label }));
+  btn.disabled = true;
+  try {
+    const r = await postOrSide('/api/push', { module: moduleName });
+    const j = await r.json().catch(() => ({}));
+    if (!r.ok || j.ok === false) appendOut('wslout', `\n[FAIL] ${j.error || r.status}\n`);
+    else appendOut('wslout', t('sysPushDone', { label }));
+  } catch (e) { appendOut('wslout', `\n[error] ${e}\n`); }
+  btn.disabled = false;
+}
+$('btnPushAgent').onclick = () => pushSystem($('btnPushAgent'), 'APP_STUDIO', t('sysAgent'));
+$('btnPushSetting').onclick = () => pushSystem($('btnPushSetting'), 'APP_TABLET_SETTING', t('sysSetting'));
+
+/* ---------- llm ---------- */
+let tabletApps = [];
+function appLabel(a) {
+  if (lang === 'en' && a.id === 'studio') return 'Celestia Studio';
+  const name = a.name || a.id;
+  if (a.progress) return name + t('appProgress');
+  return a.partial ? name + t('appPartial') : name;
+}
+function paintLlmInputs() {
+  const mode = $('llmMode').value;
+  const opt = $('llmApp').selectedOptions[0];
+  const progressing = mode === 'new' && opt && opt.dataset.progress === '1';
+  const hasProgress = tabletApps.some(a => a.progress);
+  $('llmApp').hidden = mode === 'new' && !hasProgress;
+  $('llmNew').hidden = mode !== 'new' || progressing;
+  $('llmText').hidden = mode === 'delete';
+  $('btnProgressDel').hidden = !progressing;
+}
+function fillAppSelect() {
+  const mode = $('llmMode').value;
+  const prev = $('llmApp').value;
+  const list = mode === 'delete'
+    ? tabletApps.filter(a => a.added)
+    : mode === 'new'
+      ? tabletApps.filter(a => a.progress)
+      : tabletApps.filter(a => !a.progress);
+  const sel = $('llmApp');
+  sel.innerHTML = '';
+  if (mode === 'new') {
+    const fresh = document.createElement('option');
+    fresh.value = '';
+    fresh.textContent = t('newSlot');
+    sel.appendChild(fresh);
+  }
+  if (!list.length && mode !== 'new') {
+    const o = document.createElement('option');
+    o.value = '';
+    o.textContent = mode === 'delete' ? t('noAdded') : t('noApp');
+    sel.appendChild(o);
+    paintLlmInputs();
+    return;
+  }
+  for (const a of list) {
+    const o = document.createElement('option');
+    o.value = a.module;
+    o.dataset.path = a.path;
+    o.dataset.id = a.id;
+    if (a.progress) o.dataset.progress = '1';
+    o.textContent = appLabel(a);
+    sel.appendChild(o);
+  }
+  if ([...sel.options].some(o => o.value === prev)) sel.value = prev;
+  paintLlmInputs();
+  showAppThread();
+}
+async function loadApps() {
+  try {
+    const r = await apiGet('/api/apps');
+    const j = await r.json();
+    tabletApps = j.apps || [];
+  } catch { tabletApps = []; }
+  fillAppSelect();
+}
+function syncLlmTarget() {
+  paintJob(jobBusy);
+  fillAppSelect();
+}
+$('llmMode').onchange = syncLlmTarget;
+$('llmApp').onchange = () => { paintLlmInputs(); showAppThread(); };
+$('btnProgressDel').onclick = async () => {
+  if (jobBusy) return;
+  const opt = $('llmApp').selectedOptions[0];
+  if (!opt || opt.dataset.progress !== '1') return;
+  const id = opt.dataset.id;
+  const label = opt.textContent;
+  if (!id || !confirm(t('delAsk', { label }))) return;
+  $('btnProgressDel').disabled = true;
+  showPane('wsl');
+  appendOut('wslout', t('delHead', { label }));
+  try {
+    const r = await toolPost('/api/apps/delete', { id });
+    const j = await r.json();
+    appendOut('wslout', j.ok ? `${(j.steps || []).join('\n')}\n` : `\n[FAIL] ${j.error}\n`);
+    await loadApps();
+  } catch (e) { appendOut('wslout', `\n[error] ${e}\n`); }
+  $('btnProgressDel').disabled = false;
+};
+$('llmNew').addEventListener('input', () => { if ($('llmMode').value === 'new') showAppThread(); });
+loadApps();
+$('btnLlm').onclick = async () => {
+  if (jobBusy) {
+    await stopLlmJob();
+    return;
+  }
+  const mode = $('llmMode').value;
+  const opt = $('llmApp').selectedOptions[0];
+  const mod = $('llmApp').value;
+  const path = (opt && opt.dataset.path) || mod;
+  if (mode === 'delete') {
+    const id = opt && opt.dataset.id;
+    if (!id) return;
+    const label = opt.textContent;
+    if (!confirm(t('delAsk', { label }))) return;
+    $('btnLlm').disabled = true;
+    showPane('wsl');
+    appendOut('wslout', t('delHead', { label }));
+    try {
+      const r = await toolPost('/api/apps/delete', { id });
+      const j = await r.json();
+      appendOut('wslout', j.ok ? `${(j.steps || []).join('\n')}\n` : `\n[FAIL] ${j.error}\n`);
+      await loadApps();
+    } catch (e) { appendOut('wslout', `\n[error] ${e}\n`); }
+    $('btnLlm').disabled = false;
+    paintJob(false);
+    return;
+  }
+  const text = $('llmText').value.trim();
+  if (!text) return;
+  const picked = mode === 'new' ? $('llmApp').selectedOptions[0] : null;
+  const resume = !!(picked && picked.dataset.progress === '1');
+  const target = mode === 'edit' ? path : (resume ? picked.dataset.id : $('llmNew').value.trim());
+  if (mode === 'new' && !target) {
+    showPane('wsl');
+    appendOut('wslout', t('needId'));
+    return;
+  }
+  if (mode === 'new' && !resume && !confirm(t('newAsk', { label: target }))) return;
+  jobThread = mode === 'new' ? ('app:' + target) : threadKey();
+  shownThread = jobThread;
+  $('wslout').textContent = appThreads[jobThread] || '';
+  paintJob(true);
+  showPane('wsl');
+  appendOut('wslout', t('genHead'));
+  appendOut('wslout', t('genStarted', { act: mode === 'new' ? t('actNew') : t('actEdit'), target }));
+  appendOut('wslout', t('genAsk') + text + '\n');
+  appendOut('wslout', resume ? t('stepsContinue') : (mode === 'new' ? t('stepsNew') : t('stepsEdit')));
+  appendOut('wslout', t('genQueued'));
+  $('llmText').value = '';
+  try {
+    const r = await postOrSide('/api/llm', { mode, pane: 'wsl', target, text, resume });
+    if (!r.ok) {
+      const j = await readJson(r);
+      appendOut('wslout', `\n[error] ${j.error || t('genSubmitFail', { status: r.status })}\n`);
+      $('llmText').value = text;
+      paintJob(false);
+    }
+  } catch (e) {
+    appendOut('wslout', t('genFail', { err: e }));
+    $('llmText').value = text;
+    paintJob(false);
+  }
+};
+
+let llmCatalog = [];
+let llmSaved = {};
+let llmState = { provider: 'cursor', model: '', baseUrl: '' };
+let llmUsing = { provider: 'cursor', model: '', baseUrl: '' };
+function currentLlm() {
+  return llmCatalog.find(p => p.id === $('llmProvider').value) || null;
+}
+function chosenModel() {
+  const spec = currentLlm();
+  if (!spec) return '';
+  if (spec.modelFree || $('llmModel').value === '__custom__') return $('llmModelCustom').value.trim();
+  return $('llmModel').value;
+}
+function fillLlmForm() {
+  const sel = $('llmProvider');
+  const prev = sel.value || llmState.provider || 'cursor';
+  sel.innerHTML = '';
+  for (const p of llmCatalog) {
+    const o = document.createElement('option');
+    o.value = p.id;
+    o.textContent = providerLabel(p);
+    sel.appendChild(o);
+  }
+  if ([...sel.options].some(o => o.value === prev)) sel.value = prev;
+  const spec = currentLlm();
+  if (!spec) return;
+  const models = spec.models || [];
+  let want = llmState.provider === spec.id ? llmState.model : '';
+  if (!want) want = models[0] || '';
+  const modelSel = $('llmModel');
+  modelSel.innerHTML = '';
+  for (const m of models) {
+    const o = document.createElement('option');
+    o.value = m;
+    o.textContent = (spec.modelLabels && spec.modelLabels[m]) || m || t('pickModel');
+    modelSel.appendChild(o);
+  }
+  if (!spec.modelFree) {
+    const custom = document.createElement('option');
+    custom.value = '__custom__';
+    custom.textContent = t('customModel');
+    modelSel.appendChild(custom);
+  }
+  const useCustom = spec.modelFree || (want !== '' && !models.includes(want));
+  $('llmModelRow').hidden = spec.modelFree;
+  $('llmCustomRow').hidden = !useCustom;
+  if (useCustom) {
+    if (!spec.modelFree) modelSel.value = '__custom__';
+    $('llmModelCustom').value = want;
+  } else {
+    modelSel.value = want;
+    $('llmModelCustom').value = '';
+  }
+  $('llmBaseRow').hidden = !spec.baseFree;
+  if (spec.baseFree) $('llmBase').value = llmState.baseUrl || '';
+  $('llmKey').value = '';
+  $('llmKeyRow').hidden = spec.auth === 'login';
+  $('llmKey').placeholder = llmSaved[spec.id] ? t('keySaved') : providerHint(spec);
+  $('btnLlmAuth').textContent = spec.auth === 'login' ? t('signIn') : t('check');
+  showUsing();
+}
+function modelLabel(spec, id) {
+  if (!id) return t('notSelected');
+  return (spec && spec.modelLabels && spec.modelLabels[id]) || id;
+}
+let llmCursorOn = false;
+function usingText() {
+  const spec = llmCatalog.find(p => p.id === llmUsing.provider);
+  const name = spec ? providerLabel(spec) : (llmUsing.provider || t('notSelected'));
+  const id = llmUsing.model || (spec && spec.models && spec.models[0]) || '';
+  const label = `${name} · ${modelLabel(spec, id)}`;
+  const on = spec && spec.auth === 'login' ? llmCursorOn : !!llmSaved[llmUsing.provider];
+  return on ? t('linked', { label }) : t('unlinked', { label });
+}
+function showUsing() {
+  const spec = currentLlm();
+  const using = usingText();
+  const pickedId = spec ? chosenModel() : '';
+  const picked = spec ? `${providerLabel(spec)} · ${modelLabel(spec, pickedId)}` : '';
+  const savedId = llmUsing.model || (spec && spec.id === llmUsing.provider && spec.models && spec.models[0]) || '';
+  const same = spec && spec.id === llmUsing.provider && pickedId === savedId;
+  const title = same ? using : t('usingPending', { using, picked });
+  $('btnLlmPage').textContent = using;
+  $('btnLlmPage').title = title;
+  $('llmStat').textContent = using;
+  $('llmStat').title = title;
+}
+function paintLlmLabels() {
+  for (const o of $('llmProvider').options) {
+    const p = llmCatalog.find(x => x.id === o.value);
+    if (p) o.textContent = providerLabel(p);
+  }
+  const spec = currentLlm();
+  for (const o of $('llmModel').options) {
+    if (o.value === '__custom__') o.textContent = t('customModel');
+    else if (spec) o.textContent = (spec.modelLabels && spec.modelLabels[o.value]) || o.value || t('pickModel');
+  }
+  if (spec) {
+    $('llmKey').placeholder = llmSaved[spec.id] ? t('keySaved') : providerHint(spec);
+    $('btnLlmAuth').textContent = spec.auth === 'login' ? t('signIn') : t('check');
+  }
+  showUsing();
+}
+$('btnLlmPage').onclick = () => $('llmPage').classList.toggle('on');
+$('btnLlmBack').onclick = () => $('llmPage').classList.remove('on');
+$('llmProvider').onchange = () => {
+  llmState = { provider: $('llmProvider').value, model: '', baseUrl: '' };
+  fillLlmForm();
+};
+  $('llmModel').onchange = () => {
+  $('llmCustomRow').hidden = $('llmModel').value !== '__custom__';
+  showUsing();
+};
+async function saveLlmForm() {
+  const spec = currentLlm();
+  if (!spec) throw new Error(t('noProvider'));
+  const body = {
+    provider: spec.id,
+    model: chosenModel(),
+    baseUrl: spec.baseFree ? $('llmBase').value.trim() : '',
+  };
+  const key = $('llmKey').value;
+  if (key) body.apiKey = key;
+  const r = await toolPost('/api/llm/config', body);
+  const j = await r.json();
+  if (!r.ok) throw new Error(j.error || r.status);
+  llmSaved = j.saved || llmSaved;
+  llmState = { provider: j.provider, model: j.model || '', baseUrl: j.baseUrl || '' };
+  llmUsing = { ...llmState };
+  $('llmKey').value = '';
+  $('llmKey').placeholder = llmSaved[spec.id] ? t('keySaved') : providerHint(spec);
+  return j;
+}
+async function refreshLlmStatus() {
+  const spec = llmCatalog.find(p => p.id === llmUsing.provider);
+  if (!spec || spec.auth !== 'login') return;
+  try {
+    const r = await apiGet('/api/llm/status');
+    const j = await r.json();
+    llmCursorOn = !!j.ok;
+    showUsing();
+  } catch { /* 状态查询失败时保留原提示 */ }
+}
+async function loadLlmUi() {
+  try {
+    const r = await apiGet('/api/llm/config');
+    if (!r.ok) return;
+    const j = await r.json();
+    llmCatalog = j.providers || [];
+    llmSaved = j.saved || {};
+    llmState = { provider: j.provider || 'cursor', model: j.model || '', baseUrl: j.baseUrl || '' };
+    llmUsing = { ...llmState };
+    fillLlmForm();
+    refreshLlmStatus();
+  } catch { /* 页面仍可用，模型栏留空 */ }
+}
+$('btnLlmSave').onclick = async () => {
+  $('btnLlmSave').disabled = true;
+  try {
+    await saveLlmForm();
+    showUsing();
+  } catch (e) {
+    $('llmStat').textContent = String(e.message || e).slice(0, 36);
+  }
+  $('btnLlmSave').disabled = false;
+};
+$('btnLlmAuth').onclick = async () => {
+  const spec = currentLlm();
+  if (!spec) return;
+  $('btnLlmAuth').disabled = true;
+  $('llmStat').textContent = spec.auth === 'login' ? t('signingIn') : t('checkingKey');
+  try {
+    await saveLlmForm();
+    const r = await toolPost('/api/llm/login', {});
+    const j = await r.json();
+    const text = String(j.text || j.error || '').replace(/\s+/g, ' ').trim();
+    if (spec.auth === 'login') llmCursorOn = !!j.ok;
+    showUsing();
+    if (text && !j.ok) {
+      $('llmStat').textContent = text;
+      $('llmStat').title = text;
+    } else {
+      $('llmStat').title = text ? t('usingNote', { using: usingText(), text }) : usingText();
+    }
+  } catch (e) {
+    $('llmStat').textContent = String(e.message || e).slice(0, 36);
+  }
+  $('btnLlmAuth').disabled = false;
+};
+loadLlmUi();
+
+/* ---------- pointer → device ---------- */
+let pointing = false;
+let lastMove = 0;
+let lastPt = null;
+function screenPoint(ev) {
+  const img = $('screen');
+  const r = img.getBoundingClientRect();
+  const nw = img.naturalWidth || 800;
+  const nh = img.naturalHeight || 480;
+  if (!r.width || !r.height) return null;
+  const scale = Math.min(r.width / nw, r.height / nh);
+  const dw = nw * scale, dh = nh * scale;
+  const x = Math.round((ev.clientX - r.left) / scale);
+  const y = Math.round((ev.clientY - r.top) / scale);
+  if (x < 0 || y < 0 || x >= nw || y >= nh || ev.clientX > r.left + dw || ev.clientY > r.top + dh) return null;
+  return { x, y };
+}
+function sendPtr(op, pt) {
+  if (!pt) return;
+  const body = JSON.stringify({ op, x: pt.x, y: pt.y });
+  fetch('/api/input', { method: 'POST', body }).then(r => {
+    if (r.status === 404)
+      fetch('' + sideOrigin() + '/api/input', { method: 'POST', mode: 'no-cors', body });
+  }).catch(() => {});
+}
+$('screen').addEventListener('pointerdown', ev => {
+  const pt = screenPoint(ev);
+  if (!pt) return;
+  pointing = true;
+  lastPt = pt;
+  $('screen').setPointerCapture(ev.pointerId);
+  sendPtr('down', pt);
+});
+$('screen').addEventListener('pointermove', ev => {
+  if (!pointing) return;
+  const pt = screenPoint(ev);
+  if (!pt) return;
+  lastPt = pt;
+  const now = performance.now();
+  if (now - lastMove < 30) return;
+  lastMove = now;
+  sendPtr('move', pt);
+});
+$('screen').addEventListener('pointerup', ev => {
+  if (!pointing) return;
+  pointing = false;
+  sendPtr('up', screenPoint(ev) || lastPt);
+});
+$('screen').addEventListener('pointercancel', () => {
+  if (!pointing) return;
+  pointing = false;
+  sendPtr('up', lastPt);
+});
+
+$('screen').src = '/video?' + Date.now();
+$('screen').onerror = () => {
+  if (!syncOn) return;
+  setTimeout(() => { if (syncOn) $('screen').src = '/video?' + Date.now(); }, 3000);
+};
+</script>
+</body>
+</html>

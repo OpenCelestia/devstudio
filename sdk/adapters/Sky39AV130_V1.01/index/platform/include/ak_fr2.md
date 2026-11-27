@@ -1,0 +1,9 @@
+# platform/include/ak_fr2.h
+ak_fr2_init
+ak_fr2_deinit
+ak_fr2_load_model
+ak_fr2_get_detected_face
+ak_fr2_release_detected_face
+ak_fr2_get_feature_len
+ak_fr2_create_feature
+ak_fr2_match_features

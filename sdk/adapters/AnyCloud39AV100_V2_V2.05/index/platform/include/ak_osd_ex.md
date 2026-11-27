@@ -1,0 +1,20 @@
+# platform/include/ak_osd_ex.h
+ak_osd_ex_init2
+ak_osd_ex_set_color_table
+ak_osd_ex_init
+ak_osd_ex_set_font_file
+ak_osd_ex_get_max_rect
+ak_osd_ex_set_rect
+ak_osd_ex_draw_matrix
+ak_osd_ex_get_str_bmp
+ak_osd_ex_release_bmp_buf
+ak_osd_ex_release_bmp_buf_ex
+ak_osd_ex_draw_str
+ak_osd_ex_draw_str_ex
+ak_osd_ex_clean_str
+ak_osd_ex_set_color
+ak_osd_ex_set_edge_color
+ak_osd_ex_set_alpha
+ak_osd_ex_set_font_size
+ak_osd_ex_set_font_interval
+ak_osd_ex_destroy

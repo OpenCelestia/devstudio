@@ -1,0 +1,709 @@
+{
+  "release_id": "Sky39AV130_V1.01",
+  "kind": "flash",
+  "source": "fae_peripheral_support_md",
+  "spi_nor": [
+    {
+      "model": "at26df321"
+    },
+    {
+      "model": "at25df321a"
+    },
+    {
+      "model": "at45db011d"
+    },
+    {
+      "model": "at45db021d"
+    },
+    {
+      "model": "at45db041d"
+    },
+    {
+      "model": "at45db081d"
+    },
+    {
+      "model": "at45db161d"
+    },
+    {
+      "model": "at45db321d"
+    },
+    {
+      "model": "at45db641d"
+    },
+    {
+      "model": "at26df081a"
+    },
+    {
+      "model": "en25q32b"
+    },
+    {
+      "model": "en25q64"
+    },
+    {
+      "model": "en25qh128"
+    },
+    {
+      "model": "en25s64"
+    },
+    {
+      "model": "en25"
+    },
+    {
+      "model": "ven25qh128a"
+    },
+    {
+      "model": "en25qx64A"
+    },
+    {
+      "model": "en25qx128A"
+    },
+    {
+      "model": "gd25q16"
+    },
+    {
+      "model": "gd25q32"
+    },
+    {
+      "model": "gd25lq32"
+    },
+    {
+      "model": "gd25q64"
+    },
+    {
+      "model": "gd25q128"
+    },
+    {
+      "model": "gd25q256"
+    },
+    {
+      "model": "GD25F128F"
+    },
+    {
+      "model": "GD25F64F"
+    },
+    {
+      "model": "is25lq040b"
+    },
+    {
+      "model": "is25lp032"
+    },
+    {
+      "model": "is25lp064"
+    },
+    {
+      "model": "is25lp128"
+    },
+    {
+      "model": "is25lp256"
+    },
+    {
+      "model": "is25wp032"
+    },
+    {
+      "model": "is25wp064"
+    },
+    {
+      "model": "is25wp128"
+    },
+    {
+      "model": "mx25l2005a"
+    },
+    {
+      "model": "mx25l4005a"
+    },
+    {
+      "model": "mx25l8005"
+    },
+    {
+      "model": "mx25l1606e"
+    },
+    {
+      "model": "mx25l3205d"
+    },
+    {
+      "model": "mx25l6405d"
+    },
+    {
+      "model": "mx25u2033e"
+    },
+    {
+      "model": "mx25u1635e"
+    },
+    {
+      "model": "mx25u6435f"
+    },
+    {
+      "model": "mx25l12805d"
+    },
+    {
+      "model": "mx25l12855e"
+    },
+    {
+      "model": "mx25l25635e"
+    },
+    {
+      "model": "mx25u25635f"
+    },
+    {
+      "model": "mx25l25655e"
+    },
+    {
+      "model": "mx66l51235l"
+    },
+    {
+      "model": "mx66u51235f"
+    },
+    {
+      "model": "mx66u2g45g"
+    },
+    {
+      "model": "mx66l1g45g"
+    },
+    {
+      "model": "mx25l1633e"
+    },
+    {
+      "model": "n25q016a"
+    },
+    {
+      "model": "n25q032"
+    },
+    {
+      "model": "n25q032a"
+    },
+    {
+      "model": "n25q064"
+    },
+    {
+      "model": "n25q064a"
+    },
+    {
+      "model": "n25q128a11"
+    },
+    {
+      "model": "n25q128a13"
+    },
+    {
+      "model": "n25q256a"
+    },
+    {
+      "model": "n25q256ax1"
+    },
+    {
+      "model": "mt25qu512a"
+    },
+    {
+      "model": "n25q512a"
+    },
+    {
+      "model": "n25q512ax3"
+    },
+    {
+      "model": "n25q00"
+    },
+    {
+      "model": "n25q00a"
+    },
+    {
+      "model": "mt25qu02g"
+    },
+    {
+      "model": "mt35xu512aba"
+    },
+    {
+      "model": "mt35xu02g"
+    },
+    {
+      "model": "s25sl032p"
+    },
+    {
+      "model": "s25sl064p"
+    },
+    {
+      "model": "s25fl256s0"
+    },
+    {
+      "model": "s25fl256s1"
+    },
+    {
+      "model": "s25fl512s"
+    },
+    {
+      "model": "s25fl512s_256k"
+    },
+    {
+      "model": "s25fl512s_64k"
+    },
+    {
+      "model": "s25fl512s_512k"
+    },
+    {
+      "model": "s25sl12800"
+    },
+    {
+      "model": "s25sl12801"
+    },
+    {
+      "model": "s25fl128s"
+    },
+    {
+      "model": "s25fl129p0"
+    },
+    {
+      "model": "s25fl129p1"
+    },
+    {
+      "model": "s25sl008a"
+    },
+    {
+      "model": "s25sl016a"
+    },
+    {
+      "model": "s25sl032a"
+    },
+    {
+      "model": "s25sl064a"
+    },
+    {
+      "model": "s25fl116k"
+    },
+    {
+      "model": "s25fl164k"
+    },
+    {
+      "model": "s25fl208k"
+    },
+    {
+      "model": "s25fl064l"
+    },
+    {
+      "model": "s25fl128l"
+    },
+    {
+      "model": "sst25vf040b"
+    },
+    {
+      "model": "sst25vf080b"
+    },
+    {
+      "model": "sst25vf016b"
+    },
+    {
+      "model": "sst25vf032b"
+    },
+    {
+      "model": "sst25vf064c"
+    },
+    {
+      "model": "sst25wf512"
+    },
+    {
+      "model": "sst25wf010"
+    },
+    {
+      "model": "sst25wf020"
+    },
+    {
+      "model": "sst25wf020a"
+    },
+    {
+      "model": "sst25wf040b"
+    },
+    {
+      "model": "sst25wf040"
+    },
+    {
+      "model": "sst25wf080"
+    },
+    {
+      "model": "sst26vf064b"
+    },
+    {
+      "model": "sst26wf016"
+    },
+    {
+      "model": "sst26wf032"
+    },
+    {
+      "model": "sst26wf064"
+    },
+    {
+      "model": "m25p10"
+    },
+    {
+      "model": "m25p20"
+    },
+    {
+      "model": "m25p40"
+    },
+    {
+      "model": "m25p80"
+    },
+    {
+      "model": "m25p16"
+    },
+    {
+      "model": "m25p32"
+    },
+    {
+      "model": "m25p64"
+    },
+    {
+      "model": "m25p128"
+    },
+    {
+      "model": "m25pe16"
+    },
+    {
+      "model": "m25px16"
+    },
+    {
+      "model": "m25px64"
+    },
+    {
+      "model": "w25p80"
+    },
+    {
+      "model": "w25p16"
+    },
+    {
+      "model": "w25p32"
+    },
+    {
+      "model": "w25x05"
+    },
+    {
+      "model": "w25x40"
+    },
+    {
+      "model": "w25x16"
+    },
+    {
+      "model": "w25q16dw"
+    },
+    {
+      "model": "w25x32"
+    },
+    {
+      "model": "w25q20cl"
+    },
+    {
+      "model": "w25q20bw"
+    },
+    {
+      "model": "w25q20ew"
+    },
+    {
+      "model": "w25q32"
+    },
+    {
+      "model": "w25q32dw"
+    },
+    {
+      "model": "w25q32jv"
+    },
+    {
+      "model": "w25x64"
+    },
+    {
+      "model": "w25q64dw"
+    },
+    {
+      "model": "w25q64jv"
+    },
+    {
+      "model": "w25q128fw"
+    },
+    {
+      "model": "w25q128jv"
+    },
+    {
+      "model": "w25q256fw"
+    },
+    {
+      "model": "w25q256jw"
+    },
+    {
+      "model": "w25q80"
+    },
+    {
+      "model": "w25q80bl"
+    },
+    {
+      "model": "w25q16cl"
+    },
+    {
+      "model": "w25q64cv"
+    },
+    {
+      "model": "w25q128"
+    },
+    {
+      "model": "w25q256"
+    },
+    {
+      "model": "XM25QH64A"
+    },
+    {
+      "model": "XM25QH128A"
+    },
+    {
+      "model": "XM25QH16C"
+    },
+    {
+      "model": "XM25QH32C"
+    },
+    {
+      "model": "XM25QH64C"
+    },
+    {
+      "model": "XM25QH128C"
+    },
+    {
+      "model": "XM25QH256C"
+    },
+    {
+      "model": "XM25QH64D"
+    },
+    {
+      "model": "XM25QH128D"
+    },
+    {
+      "model": "FM25Q64"
+    },
+    {
+      "model": "FM25Q128"
+    },
+    {
+      "model": "DS_FM25Q64A"
+    },
+    {
+      "model": "BY25Q32E"
+    },
+    {
+      "model": "BY25Q64A"
+    },
+    {
+      "model": "BY25Q128A"
+    },
+    {
+      "model": "ZB25VQ32"
+    },
+    {
+      "model": "ZB25VQ64"
+    },
+    {
+      "model": "ZB25VQ128"
+    },
+    {
+      "model": "XT25F16F"
+    },
+    {
+      "model": "XT25F32F"
+    },
+    {
+      "model": "XT25F64B"
+    },
+    {
+      "model": "XT25F128B"
+    },
+    {
+      "model": "XT25F128F"
+    },
+    {
+      "model": "XTD25W64A"
+    },
+    {
+      "model": "NM25Q64EVB"
+    },
+    {
+      "model": "NM25Q128EVB"
+    },
+    {
+      "model": "P25Q16SH"
+    },
+    {
+      "model": "P25Q32SH"
+    },
+    {
+      "model": "P25Q64SH"
+    },
+    {
+      "model": "PY25Q32HB"
+    },
+    {
+      "model": "PY25Q64HA"
+    },
+    {
+      "model": "PY25Q128HA"
+    },
+    {
+      "model": "GT25Q32A"
+    },
+    {
+      "model": "GM25Q64A"
+    },
+    {
+      "model": "GM25Q128A"
+    },
+    {
+      "model": "ME25L64E"
+    },
+    {
+      "model": "ME25L128C"
+    },
+    {
+      "model": "UC25IQ128A"
+    },
+    {
+      "model": "UC25IQ64A"
+    },
+    {
+      "model": "BW25Q64A"
+    },
+    {
+      "model": "BW25Q128A"
+    },
+    {
+      "model": "TH25Q64HA"
+    },
+    {
+      "model": "TH25Q128HA"
+    },
+    {
+      "model": "DS25Q64A"
+    },
+    {
+      "model": "DS25Q4AA"
+    }
+  ],
+  "spi_nand": [
+    {
+      "vendor": "dosilicon",
+      "models": [
+        "DS35Q1GB"
+      ]
+    },
+    {
+      "vendor": "fm_micro",
+      "models": [
+        "FM25S01A",
+        "FM25S02A",
+        "FM25S01BI3"
+      ]
+    },
+    {
+      "vendor": "foress",
+      "models": [
+        "FS35ND01G",
+        "FS35ND02G",
+        "F35SQA001G"
+      ]
+    },
+    {
+      "vendor": "gigadevice",
+      "models": [
+        "GD5F1GQ4UExxG",
+        "GD5F1GQ5UExxG",
+        "GD5F2GQ5UExxG",
+        "GD5F1GM7UE",
+        "GD5F2GM7UE"
+      ]
+    },
+    {
+      "vendor": "gsto",
+      "models": [
+        "GSS01GSAX1",
+        "GSS01GSAM0"
+      ]
+    },
+    {
+      "vendor": "heyangtek",
+      "models": [
+        "HYF4GQ4UAACAE"
+      ]
+    },
+    {
+      "vendor": "macronix",
+      "models": [
+        "MX35LF1GE4AB",
+        "MX35LF2GE4AB",
+        "MX35LF2GE4AD"
+      ]
+    },
+    {
+      "vendor": "memoritek",
+      "models": [
+        "MK60N1GA"
+      ]
+    },
+    {
+      "vendor": "micron",
+      "models": [
+        "MT29F2G01ABAGD"
+      ]
+    },
+    {
+      "vendor": "winbond",
+      "models": [
+        "W25M02GV",
+        "W25M02KV",
+        "W25N01KVZEIR"
+      ]
+    },
+    {
+      "vendor": "xtx",
+      "models": [
+        "XT26G01A",
+        "XT26G02A",
+        "XT26G02E",
+        "XT26G01C",
+        "XT26G02C",
+        "XT26G11C",
+        "XT26G01D",
+        "XT26G02D",
+        "XT26G01F"
+      ]
+    }
+  ],
+  "mmc_variants": [
+    "M54418TWR_nand_mii.dts",
+    "M54418TWR_nand_rmii.dts",
+    "M54418TWR_nand_rmii_lowfreq.dts",
+    "am335x-brppt1-mmc.dts",
+    "am335x-brppt1-nand.dts",
+    "armada-7040-db-nand.dts",
+    "at91sam9g20ek_2mmc.dts",
+    "imx6ul-isiot-emmc.dts",
+    "imx6ul-isiot-nand.dts",
+    "imx7-colibri-emmc.dts",
+    "imx7-colibri-rawnand.dts",
+    "socfpga_arria10_socdk_sdmmc.dts",
+    "sun7i-a20-olimex-som-evb-emmc.dts",
+    "sun7i-a20-olimex-som204-evb-emmc.dts",
+    "sun7i-a20-olinuxino-lime2-emmc.dts",
+    "sun7i-a20-olinuxino-micro-emmc.dts",
+    "versal-mini-emmc0.dts",
+    "versal-mini-emmc1.dts",
+    "zynq-cse-nand.dts",
+    "zynqmp-mini-emmc0.dts",
+    "zynqmp-mini-emmc1.dts",
+    "zynqmp-mini-nand.dts"
+  ],
+  "wifi_driver_dirs": [
+    "ak6018",
+    "atbm60xxx",
+    "atbm6461"
+  ],
+  "cellular": {
+    "supported_as_model_list": false,
+    "notes": "SDK 树内未见 4G 模组驱动证据文件。",
+    "evidence": []
+  },
+  "counts": {
+    "spi_nor": 191,
+    "spi_nand": 32,
+    "mmc_variants": 22,
+    "wifi_driver_dirs": 3
+  }
+}

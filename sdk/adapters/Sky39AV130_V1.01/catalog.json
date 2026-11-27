@@ -1,0 +1,122 @@
+[
+ {
+  "model": "gc20c3",
+  "resolution": "1920×1080（2M）",
+  "interface": "MIPI 2lane",
+  "fps": "30fps（另有 45fps、24/27MHz 调参档）",
+  "cis_modes": [
+   "1（单目）",
+   "2（双目，主从）"
+  ],
+  "features": "常电、快启、AOV",
+  "source": "package",
+  "package": "gc20c3.tar.gz",
+  "docs": [
+   "doc",
+   "gc20c3",
+   "00-强制触发模式.txt",
+   "000_release_setting.zip",
+   "beta_AEC_liner_GC20C3.txt",
+   "beta_AEC_liner_GC20C3_辅助.c",
+   "beta_aov_2lane_raw10_1920x1080_24mhz_30fps_GC20C3.txt",
+   "beta_aov_2lane_raw10_1920x1080_27mhz_30fps_GC20C3.txt",
+   "GC20C3同步.zip",
+   "release_AEC_v2.0.0_0000&0001&0002&0003&0004&0006&0007_liner_GC20C3.txt",
+   "release_v2.1.0_0003_2lane_raw10_1920x1080_24mhz_45fps_GC20C3.txt",
+   "release_v2.1.0_0003_2lane_raw10_1920x1080_27mhz_45fps_GC20C3.txt",
+   "sh_v2.0.0_03_2lane_raw10_1920x1080_24mhz_45fps_GC20C3_612mbps.txt"
+  ],
+  "confs": [
+   "isp_gc20c3_mipi_2lane_av130_master_slave.conf"
+  ]
+ },
+ {
+  "model": "sc2331x",
+  "resolution": "1920×1080（2M）",
+  "interface": "MIPI 2lane",
+  "fps": "30fps（另有 max46fps 档）",
+  "cis_modes": [
+   "2（双目，从从）",
+   "4（四目，全从）"
+  ],
+  "features": "常电、快启、AOV",
+  "source": "sdk_builtin",
+  "package": null,
+  "docs": [],
+  "confs": [
+   "isp_sc2331x_mipi_2lane_slave_av130.conf",
+   "isp_sc2331x_mipi_2lane_slave_max30fps_av130.conf",
+   "isp_sc2331x_mipi_2lane_slave_max46fps_av130.conf",
+   "isp_sc2331x_mipi_2lane_slave_max46fps_quad_av130.conf"
+  ]
+ },
+ {
+  "model": "sc2337p",
+  "resolution": "1920×1080（2M）",
+  "interface": "MIPI 2lane / DVP 10bit",
+  "fps": "30fps",
+  "cis_modes": [
+   "1（单目）",
+   "2（双目，主从）"
+  ],
+  "features": "常电、快启、AOV",
+  "source": "sdk_builtin",
+  "package": null,
+  "docs": [],
+  "confs": [
+   "isp_sc2337p_dvp_10bit_slave_av130.conf",
+   "isp_sc2337p_mipi_2lane_av130.conf",
+   "isp_sc2337p_mipi_2lane_slave_av130.conf"
+  ]
+ },
+ {
+  "model": "sc2337x",
+  "resolution": "1920×1080（2M）",
+  "interface": "MIPI 2lane",
+  "fps": "30fps（另有 max40/max46fps 档）",
+  "cis_modes": [
+   "2（双目，从从）"
+  ],
+  "features": "常电、快启、AOV",
+  "source": "sdk_builtin",
+  "package": null,
+  "docs": [],
+  "confs": [
+   "isp_sc2337x_mipi_2lane_slave_av130.conf",
+   "isp_sc2337x_mipi_2lane_slave_max40fps_av130.conf",
+   "isp_sc2337x_mipi_2lane_slave_max46fps_av130.conf"
+  ]
+ },
+ {
+  "model": "sc202cs",
+  "resolution": "1600×1200（2M）",
+  "interface": "MIPI 1lane",
+  "fps": "30fps",
+  "cis_modes": [
+   "2（双目，从从）"
+  ],
+  "features": "常电、快启、AOV",
+  "source": "sdk_builtin",
+  "package": null,
+  "docs": [],
+  "confs": [
+   "isp_sc202cs_mipi_1lane_av130_slave.conf"
+  ]
+ },
+ {
+  "model": "sc1346",
+  "resolution": "1280×720（720p）",
+  "interface": "MIPI 1lane",
+  "fps": "30fps",
+  "cis_modes": [
+   "1（单目）"
+  ],
+  "features": "常电、快启（驱动无 AOV 分支）",
+  "source": "sdk_builtin",
+  "package": null,
+  "docs": [],
+  "confs": [
+   "isp_sc1346_mipi_1lane_av130.conf"
+  ]
+ }
+]

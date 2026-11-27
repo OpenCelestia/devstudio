@@ -1,0 +1,6 @@
+release_id: Sky39AV130_V1.01
+family: Sky39AV130
+version: V1.01
+chip: AV130
+libc: aos
+toolchain: arm-none-eabi

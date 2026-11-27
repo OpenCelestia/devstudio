@@ -1,0 +1,12 @@
+# platform/include/ak_ipu.h
+AK_MPI_IPU_Open
+AK_MPI_IPU_Close
+AK_MPI_IPU_StartQue
+AK_MPI_IPU_EndQue
+AK_MPI_IPU_WaitForDone
+AK_MPI_IPU_QuickCopy
+AK_MPI_IPU_QuickFill
+AK_MPI_IPU_CompositeResize
+AK_MPI_IPU_Blend
+AK_MPI_IPU_Trans4
+AK_MPI_IPU_GetCmdLen

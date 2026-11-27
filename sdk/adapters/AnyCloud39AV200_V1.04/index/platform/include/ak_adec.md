@@ -1,0 +1,15 @@
+# platform/include/ak_adec.h
+AK_MPI_ADEC_SetLibPrintLevel
+AK_MPI_ADEC_GetVersion
+AK_MPI_ADEC_GetEncVersion
+AK_MPI_ADEC_Open
+AK_MPI_ADEC_SetOutputPcmLen
+AK_MPI_ADEC_SendStream
+AK_MPI_ADEC_GetFrame
+AK_MPI_ADEC_ReleaseFrame
+AK_MPI_ADEC_SendEndofStream
+AK_MPI_ADEC_ClearDecodeBuf
+AK_MPI_ADEC_Close
+AK_MPI_ADEC_SaveFile
+AK_MPI_ADEC_GetBufStatus
+AK_MPI_ADEC_RegisterDecoder

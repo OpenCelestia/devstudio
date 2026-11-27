@@ -1,0 +1,14 @@
+# platform/include/ak_common.h
+AK_BASE_SleepMs
+AK_BASE_GetOstime
+AK_BASE_GetOsTimeStamp
+AK_BASE_GetLocalDate
+AK_BASE_SetLocalDate
+AK_BASE_DiffMsTime
+AK_BASE_SecondsToDate
+AK_BASE_DateToSeconds
+AK_BASE_DateToString
+AK_BASE_StringToDate
+AK_BASE_Open
+AK_BASE_SdkInit
+AK_BASE_SdkExit

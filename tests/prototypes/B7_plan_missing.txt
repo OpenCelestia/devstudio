@@ -1,0 +1,5 @@
+GC5603 不在 AnyCloud39AV200_V1.04 的支持列表里，将生成方案包。缺以下参数：
+  1. MIPI Lane 数
+  2. MCLK 频率
+  3. I2C 地址
+  4. 寄存器初始化序列（ini 或 0xADDR,0xVAL 文本）
